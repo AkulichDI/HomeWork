@@ -30,7 +30,7 @@ public class CollectionTasks {
      * {"a":"1", "b":"1"} -> исключение (value "1" повторяется)
      */
     public static Map<String, String> invert(Map<String, String> map) {
-        // TODO
+       return new HashMap<>();
     }
 
 
