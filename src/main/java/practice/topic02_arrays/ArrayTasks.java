@@ -1,8 +1,6 @@
 package practice.topic02_arrays;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class ArrayTasks {
 
@@ -13,7 +11,7 @@ public class ArrayTasks {
 
 
     public static int max(int[] a) {
-       ArrayTasks.validatorArrayInt(a);
+       validatorArrayInt(a);
        int current = a[0];
         for (int i = 1; i < a.length; i++) {
             if (current < a[i]) current = a[i];
@@ -21,19 +19,29 @@ public class ArrayTasks {
         return current;
     }
     public static int[] rotateRight(int[] a, int k) {
-        ArrayTasks.validatorArrayInt(a);
+        validatorArrayInt(a);
         int[] result = new int[a.length];
         k = k % a.length;
         for (int i = 0; i < a.length; i++) {
            int newIndex = (i + k) % a.length;
            result[newIndex] = a[i];
         }
-
-
-
        return result;
     }
 
+    public static int[] twoSum(int[] a, int target) {
+       validatorArrayInt(a);
+        Map<Integer, Integer> result = new HashMap<>();
+        for (int i = 0; i < a.length; i++){
+            int x = a[i];
+            int need = target - x;
+            if (result.containsKey(need)){
+                return new int[]{result.get(need), i};
+            }
+            result.put(x,i);
+        }
+       return new int[0];
+    }
 
 
 
