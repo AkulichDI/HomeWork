@@ -1,5 +1,9 @@
 package practice.topic01_strings;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /* ТЕМА 1 — ЗАДАЧА 1.1: normalizeName(String s)
  *
          * ЧТО ДЕЛАЕТ:
@@ -37,6 +41,37 @@ public class StringTasks {
     }
 
 
+    public static int countVowels(String s) {
+        if (s == null)return 0;
+        List<Character> charsRUEN = new ArrayList<>();
+        String chars = "аеёиоуыэюя" + "aeiouy";
+        List<Character> resultChars = new ArrayList<>();
+        int counter = 0;
+        for (var lit : chars.toCharArray()){
+            charsRUEN.add(lit);
+        }
+
+        for (var lit : s.toCharArray()){
+            for (var arrLit : charsRUEN) {
+                if (Character.toLowerCase(lit) == Character.toLowerCase(arrLit)){
+                    counter++;
+                    resultChars.add(lit);
+                }
+            }
+
+
+        }
+
+
+     return counter;
+    }
+
+
+
+
+
+
+
 
     public static String normName(String s){
         if(s == null){throw new IllegalArgumentException("Пустое имя");}
@@ -45,8 +80,11 @@ public class StringTasks {
         return s.substring(0,1).toUpperCase() + s.substring(1);
     }
     public static void main(String[] args) {
-        System.out.println(StringTasks.isPalindrome("Aboba"));
-        System.out.println(StringTasks.normName("DIMA"));
+
+
+        System.out.println(StringTasks.countVowels("DIMA"));
+        //System.out.println(StringTasks.isPalindrome("Aboba"));
+        //System.out.println(StringTasks.normName("DIMA"));
     }
 
 }
