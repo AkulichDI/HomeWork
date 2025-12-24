@@ -10,7 +10,7 @@ public class StringTasks {
     public static String compressRLE(String s) {
         if (validatorNotNull(s))return "Строка null";
         StringBuilder sb = new StringBuilder();
-        int counter = 0;
+        int counter = 1;
         s = s.trim();
         char current = s.charAt(0);
         for (int i = 1; i<s.length(); i++){
@@ -23,6 +23,7 @@ public class StringTasks {
                 counter = 1;
             }
         }
+        sb.append(current).append(counter);
         return sb.toString();
     }
 
