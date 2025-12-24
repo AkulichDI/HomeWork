@@ -1,6 +1,7 @@
 package practice.topic02_arrays;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ArrayTasks {
 
@@ -42,6 +43,16 @@ public class ArrayTasks {
         }
        return new int[0];
     }
+
+    public static int[] removeDuplicatesSorted(int[] a) {
+        validatorArrayInt(a);
+        int[] result = Arrays.stream(a)
+                .distinct()
+                .toArray();
+
+        return result;
+    }
+
 
 
 
