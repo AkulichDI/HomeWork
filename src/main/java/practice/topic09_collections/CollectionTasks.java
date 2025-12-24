@@ -30,7 +30,12 @@ public class CollectionTasks {
      * {"a":"1", "b":"1"} -> исключение (value "1" повторяется)
      */
     public static Map<String, String> invert(Map<String, String> map) {
-       return new HashMap<>();
+       if(map == null )return new HashMap<>();
+       HashMap<String,String> result = new HashMap<>();
+       for (Map.Entry<String ,String>  data : map.entrySet() ){
+           result.put(data.getValue(), data.getKey());
+       }
+        return result;
     }
 
 
