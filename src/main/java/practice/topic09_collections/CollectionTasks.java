@@ -1,8 +1,6 @@
 package practice.topic09_collections;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CollectionTasks {
 
@@ -13,6 +11,19 @@ public class CollectionTasks {
         if (s.isBlank()) return true;
         return false;
     }
+
+    public static Set<String> unique(List<String> words) {
+        if(words == null ) return new LinkedHashSet<>();
+        Set<String> result = new HashSet<>() ;
+        for (String word : words ){
+            if(validatorNullString(word))continue;
+            word =  word.trim();
+            result.add(word);
+        }
+        return result;
+    }
+
+
 
     public static Map<String, Integer> frequency(List<String> words) {
         if (words == null || words.isEmpty()) return new HashMap<>();
