@@ -23,10 +23,7 @@ public class Zoo {
 
 
     public static void main(String[] args) {
-        Cat cat = new Cat("Oleg");
-        Dog dog = new Dog("Liza");
-
-        animals.add(new Cat("Zina"));
+           animals.add(new Cat("Zina"));
         animals.add(new Dog("Oleg"));
 
         Zoo.makeAllSounds(animals);
