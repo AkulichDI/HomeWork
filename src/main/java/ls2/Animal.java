@@ -8,25 +8,17 @@ public class Animal {
 
     public Animal (String name){
 
-        if (name.isBlank()){
+        if (name == null || name.isBlank()){
             throw new IllegalArgumentException("Наименование пустое.");
         }
-        this.name = name;
+        this.name = name.trim();
     }
 
     public String sound (){
         return "...";
     }
 
-
-    public static void main(String[] args) {
-        Cat cat = new Cat("Oleg");
-        Dog dog = new Dog("Liza");
-        System.out.println(cat.sound());
-        System.out.println(dog.sound());
-
-
-
+    public String getName() {
+        return name;
     }
-
 }
