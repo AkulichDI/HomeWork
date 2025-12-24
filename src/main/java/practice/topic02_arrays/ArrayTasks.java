@@ -1,5 +1,9 @@
 package practice.topic02_arrays;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.PriorityQueue;
+
 public class ArrayTasks {
 
     public static void validatorArrayInt(int[] arr){
@@ -16,6 +20,25 @@ public class ArrayTasks {
         }
         return current;
     }
+    public static int[] rotateRight(int[] a, int k) {
+        ArrayTasks.validatorArrayInt(a);
+        int[] result = new int[a.length];
+        k = k % a.length;
+        for (int i = 0; i < a.length; i++) {
+           int newIndex = (i + k) % a.length;
+           result[newIndex] = a[i];
+        }
+
+
+
+       return result;
+    }
+
+
+
+
+
+
 
     public static void main(String[] args) {
         int[] a = {10,23,33,43,54,65,76,87,98,56,45,43,65,767,8787,87878,32423,324234,2234234};
