@@ -23,6 +23,30 @@ public class CollectionTasks {
         return result;
     }
 
+    public static String topWord(List<String> words) {
+        if (words == null) return null;
+
+        Map<String, Integer> freq = new HashMap<>();
+
+        String bestWord = null;
+        int bestCount = 0;
+
+        for (String w : words) {
+            if (w == null) continue;
+            w = w.trim();
+            if (w.isEmpty()) continue;
+
+            int newCount = freq.getOrDefault(w, 0) + 1;
+            freq.put(w, newCount);
+
+            if (newCount > bestCount) {
+                bestCount = newCount;
+                bestWord = w;
+            }
+        }
+        return bestWord;
+    }
+
 
 
 
