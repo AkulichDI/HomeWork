@@ -60,6 +60,23 @@ public class MapTasks {
     }
 
 
+    public static void removeIfValueLessThan(Map<String, Integer> map, int threshold) {
+        if(map == null ) throw new IllegalArgumentException("Map == null");
+        Iterator<Map.Entry<String,Integer>> it = map.entrySet().iterator();
+
+        while (it.hasNext()){
+            Map.Entry<String,Integer> e = it.next();
+            Integer v = e.getValue();
+            int vi = (v== null) ? 0: v;
+            if (vi <threshold){
+                it.remove();
+
+            }
+        }
+
+
+    }
+
 
 
 }
