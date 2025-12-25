@@ -1,7 +1,9 @@
 package practice.topic09_collections;
 
 import java.util.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CollectionTasks {
     public static boolean validatorNullString(String s){
@@ -114,6 +116,27 @@ public class CollectionTasks {
     }
 
 
+    public static List<String> sortByFrequency(List<String> words) {
+        if (words == null) return new ArrayList<>();
+        Map<String, Integer> fList = new HashMap<>();
+        List<String> result = new ArrayList<>();
+        for(String word : words){
+            if(validatorNullString(word))continue;
+            word = word.trim();
+            int valueWord = fList.getOrDefault(word, 0) + 1;
+            fList.put(word, valueWord);
+        }
+        List<Map.Entry<String, Integer>> entries = new ArrayList<>(fList.entrySet());
+        entries.sort((e1, e2)->{
+            int cmp = Integer.compare(e2.getValue(), e1.getValue());
+            if (cmp != 0 ) return cmp;
+            return e1.getKey().compareTo(e2.getKey());
+        });
+        for (var e : entries){
+            result.add(e.getKey());
+        }
+        return result;
+    }
 
 
 
@@ -142,7 +165,7 @@ public class CollectionTasks {
 
     public static Map<Long, User> indexById(List<User> users) {
         if(users == null) return new HashMap<>();
-      Map<Long, User> result = users.stream()
+        Map<Long, User> result = users.stream()
               .filter(Objects::nonNull)
               .filter(element -> element.getId() > 0)
               .collect(Collectors.toMap(
@@ -166,8 +189,6 @@ public class CollectionTasks {
         }
         public long getId (){return this.id;}
         public String getName(){return this.name;};
-
-
 
     }
 
