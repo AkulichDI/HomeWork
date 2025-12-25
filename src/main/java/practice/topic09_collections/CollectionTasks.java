@@ -69,6 +69,31 @@ public class CollectionTasks {
         return null;
     }
 
+    public static Map<String, Integer> mergeCounts(Map<String, Integer> a, Map<String, Integer> b) {
+        Map<String, Integer> result = new HashMap<>();
+
+        if (a != null) {
+            for (Map.Entry<String, Integer> e : a.entrySet()) {
+                String key = e.getKey();
+                Integer val = e.getValue();
+                result.put(key, val == null ? 0 : val);
+            }
+        }
+
+        if (b != null) {
+            for (Map.Entry<String, Integer> e : b.entrySet()) {
+                String key = e.getKey();
+                Integer val = e.getValue();
+
+                int add = (val == null ? 0 : val);
+                int old = result.getOrDefault(key, 0);
+
+                result.put(key, old + add);
+            }
+        }
+        return result;
+    }
+
 
 
 
