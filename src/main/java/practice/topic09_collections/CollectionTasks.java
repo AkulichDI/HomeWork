@@ -57,7 +57,17 @@ public class CollectionTasks {
     }
 
 
+    public static Character firstUniqueChar(String s) {
+        if(s == null)return null;
+        Map<Character,Integer> result = charFrequency(s);
+        for (Map.Entry<Character,Integer> l : result.entrySet()){
+            if(l.getValue() == 1 ){
+                return l.getKey();
+            }
+        }
 
+        return null;
+    }
 
 
 
