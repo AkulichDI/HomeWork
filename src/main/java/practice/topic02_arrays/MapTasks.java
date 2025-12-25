@@ -25,7 +25,26 @@ public class MapTasks {
         }
     }
 
+    public static boolean renameKey(Map<String, Integer> map, String oldKey, String newKey) {
 
+        if (map == null) throw new IllegalArgumentException("map == null");
+        if (oldKey == null || newKey == null) throw new IllegalArgumentException("key пустой");
+
+        oldKey = oldKey.trim();
+        newKey = newKey.trim();
+        if (oldKey.isEmpty() || newKey.isEmpty()) throw new IllegalArgumentException("key пустой");
+
+        if (oldKey.equals(newKey)) return true;
+
+        if (!map.containsKey(oldKey)) return false;
+
+        if (map.containsKey(newKey)) throw new IllegalArgumentException("newKey уже существует");
+
+        Integer val = map.get(oldKey);
+        map.remove(oldKey);
+        map.put(newKey, val);
+        return true;
+    }
 
 
 
