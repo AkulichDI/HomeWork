@@ -1,6 +1,6 @@
 package practice.topic02_arrays;
 
-import java.util.Map;
+import java.util.*;
 
 public class MapTasks {
 
@@ -44,6 +44,19 @@ public class MapTasks {
         map.remove(oldKey);
         map.put(newKey, val);
         return true;
+    }
+
+    public static int sumValues(Map<String, Integer> map) {
+        if(map == null ) throw new IllegalArgumentException("map == null");
+        int result = 0;
+        if (map.values() != null) {
+            List<Integer> l = new ArrayList<Integer>(map.values());
+            for (var lit : l) {
+                if (lit == null || lit == 0 ) continue;
+                result += lit;
+            }
+        }
+      return result;
     }
 
 
