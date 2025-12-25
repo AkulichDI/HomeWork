@@ -91,8 +91,27 @@ public class CollectionTasks {
         return result;
     }
 
+    public static int mostFrequentLength(List<String> words) {
+        if (words == null ) return -1;
+        Map<Integer, Integer> result = new HashMap<>();
+        int wordA = -1;
+        int maxCountW = 0;
 
-
+        for (String word : words){
+            if (word == null) continue;
+            word = word.trim();
+            if (word.isEmpty()) continue;
+            int len = word.length();
+            if (validatorNullString(word))continue;
+            int newInt = result.getOrDefault(word.length(), 0) + 1;
+            result.put(word.length(), newInt);
+            if(newInt > maxCountW || (newInt == maxCountW && (wordA == -1 || len < wordA))){
+                maxCountW = newInt;
+                wordA = word.length();
+            }
+        }
+        return wordA;
+    }
 
 
 
