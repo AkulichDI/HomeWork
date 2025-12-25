@@ -47,7 +47,14 @@ public class CollectionTasks {
         return bestWord;
     }
 
-
+    public static Map<Character, Integer> charFrequency(String s) {
+        if (s == null) return new HashMap<>();
+        Map<Character ,Integer> result = new LinkedHashMap<>();
+        for (char lit : s.toCharArray()){
+            result.put( lit, result.getOrDefault(lit, 0) + 1);
+        }
+        return result;
+    }
 
 
 
