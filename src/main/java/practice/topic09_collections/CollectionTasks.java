@@ -80,6 +80,16 @@ public class CollectionTasks {
         return result;
     }
 
+    public static Map<Integer, List<String>> groupByLength(List<String> words) {
+        if(words ==null) return new HashMap<>();
+        Map<Integer,List<String>> result = new HashMap<>();
+        for (var word : words){
+            if(validatorNullString(word))continue;
+            word = word.trim();
+            result.computeIfAbsent(word.length(), l -> new ArrayList<>()).add(word);
+        }
+        return result;
+    }
 
 
 
