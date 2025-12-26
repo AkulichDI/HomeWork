@@ -104,8 +104,14 @@ public class ListLesson02 {
          * - a == null -> пустой список
          */
         public static List<Integer> toIntList(int[] a) {
-            // TODO
-            return List.of();
+
+            if(a == null ) return new ArrayList<>();
+
+            List<Integer> result = new ArrayList<>();
+            for(int e : a ){
+                result.add(e);
+            }
+            return result;
         }
     }
 
