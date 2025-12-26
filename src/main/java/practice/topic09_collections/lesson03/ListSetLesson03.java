@@ -18,7 +18,6 @@ public class ListSetLesson03 {
      * - сравнение по equals()
      * - если дублей нет -> null
      *
-     * Подсказка: Set для "уже видели".
      */
     public static String firstDuplicate(List<String> items) {
         if (items == null ) return null;
@@ -41,11 +40,12 @@ public class ListSetLesson03 {
      * - items == null -> 0
      * - null / blank игнорировать
      *
-     * Подсказка: HashSet.size()
      */
     public static int uniqueCount(List<String> items) {
-        // TODO
-        return 0;
+
+        Set<String> result = new HashSet<>(items);
+
+        return result.size();
     }
 
     /**
