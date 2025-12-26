@@ -1,9 +1,6 @@
 package practice.topic09_collections.lesson04;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class QueueLesson04 {
 
@@ -60,8 +57,14 @@ public class QueueLesson04 {
      * Подсказка: Stack (Deque) или List + reverse.
      */
     public static Queue<Integer> reverseQueueCopy(Queue<Integer> queue) {
-        // TODO
-        return new ArrayDeque<>();
+
+        if (queue == null) return new ArrayDeque<>();
+
+        List<Integer> result = new ArrayList<>(queue);
+        result.removeIf(Objects::isNull);
+        Collections.reverse(result);
+
+        return new ArrayDeque<>(result);
     }
 
     /**
