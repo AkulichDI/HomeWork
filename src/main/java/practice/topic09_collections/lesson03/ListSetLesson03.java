@@ -1,8 +1,6 @@
 package practice.topic09_collections.lesson03;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class ListSetLesson03 {
 
@@ -62,13 +60,22 @@ public class ListSetLesson03 {
      * - null / blank игнорировать
      * - результат без дублей
      *
-     * Подсказка:
-     * - сделай Set из b (быстрый contains)
-     * - сделай LinkedHashSet для результата (чтобы порядок a сохранился)
      */
     public static List<String> intersection(List<String> a, List<String> b) {
-        // TODO
-        return List.of();
+
+        if( a == null || b == null ) return new ArrayList<>();
+
+        Set<String> bSet = new HashSet<>(b);
+        Set<String > result = new LinkedHashSet<>();
+
+        for (String element : a){
+            if( element == null || element.trim().isBlank() )continue;
+
+            if (bSet.contains(element)){
+                result.add(element);
+            }
+        }
+        return new ArrayList<>(result);
     }
 
     /**
