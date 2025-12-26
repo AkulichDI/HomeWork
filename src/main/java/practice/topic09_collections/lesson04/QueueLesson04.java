@@ -167,8 +167,27 @@ public class QueueLesson04 {
      * Подсказка: LinkedList + Set (или LinkedHashSet, но там надо аккуратно с порядком).
      */
     public static List<String> recentUnique(List<String> actions, int limit) {
-        // TODO
-        return List.of();
+
+        if ( actions == null ) return new ArrayList<>();
+        if ( limit <= 0 ) return new ArrayList<>();
+
+        LinkedList<String> result = new LinkedList<>();
+
+        for ( String  element : actions) {
+
+            if ( element == null || element.trim().isBlank()) continue;
+
+            element = element.trim();
+
+            result.remove(element);
+            result.addLast(element);
+
+           if (result.size() > limit){
+               result.removeFirst();
+           }
+        }
+
+        return result;
     }
 
 }
