@@ -73,9 +73,23 @@ public class MapTasks {
 
             }
         }
-
-
     }
+
+    public static Set<String> intersectKeys(Map<String, Integer> a, Map<String, Integer> b) {
+
+        Iterator<Map.Entry<String,Integer>> it1 = a.entrySet().iterator();
+        Iterator<Map.Entry<String,Integer>> it2 = b.entrySet().iterator();
+        Set<String> result = new HashSet<>();
+
+        while (it1.hasNext() || it2.hasNext()){
+
+          //  if (i)
+        }
+
+
+        return new HashSet<>();
+    }
+
 
 
 
