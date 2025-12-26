@@ -40,8 +40,12 @@ public class ListSetLesson03 {
      *
      */
     public static int uniqueCount(List<String> items) {
-
-        Set<String> result = new HashSet<>(items);
+        if (items == null ) return 0;
+        Set<String> result = new HashSet<>();
+        for (String element : items){
+            if(element == null || element.trim().isBlank()) continue;
+            result.add(element.trim());
+        }
 
         return result.size();
     }
@@ -94,8 +98,31 @@ public class ListSetLesson03 {
      * - результат без дублей
      */
     public static List<String> difference(List<String> a, List<String> b) {
-        // TODO
-        return List.of();
+
+        if (a == null ) return new ArrayList<>();
+        if (b == null ) {
+
+            Set<String> bElements = new LinkedHashSet<>();
+            for (var el : a ){
+                if(el == null || el.trim().isBlank())continue;
+                bElements.add(el.trim());
+            }
+            return new ArrayList<>(bElements);
+        }
+        Set<String > result = new LinkedHashSet<>();
+        Set<String> arrB = new LinkedHashSet<>();
+        for (var el : b){
+            if (el == null || el.trim().isBlank())continue;
+            arrB.add(el.trim());
+        }
+
+        for( var el : a){
+            if (el == null || el.trim().isBlank())continue;
+            el = el.trim();
+            if (arrB.contains(el))continue;
+            result.add(el);
+        }
+        return new ArrayList<>(result);
     }
 
     /**
@@ -114,8 +141,14 @@ public class ListSetLesson03 {
      * Подсказка: сравнить count валидных элементов и размер Set.
      */
     public static boolean hasAllUnique(List<String> items) {
-        // TODO
-        return false;
+        if (items == null ) return true;
+
+        Set<String> result = new HashSet<>();
+        for ( String el : items ){
+            if (el == null || el.trim().isBlank())continue;
+            if (!result.add(el.trim())) return false;
+        }
+        return true;
     }
 
 }
