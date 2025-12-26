@@ -120,8 +120,23 @@ public class QueueLesson04 {
      * Подсказка: собрать в List<Character> и использовать два указателя.
      */
     public static boolean isPalindromeQueue(Queue<Character> queue) {
-        // TODO
-        return false;
+
+        if ( queue == null ) return false;
+
+        Deque<Character> prom = new ArrayDeque<>();
+
+        for ( Character ch : queue){
+            if ( ch != null ) prom.addLast(ch);
+        }
+
+        while (prom.size() > 1){
+
+            char left = Character.toLowerCase(prom.removeFirst());
+            char right = Character.toLowerCase(prom.removeLast());
+
+            if (left != right) return false;
+        }
+        return true;
     }
 
     /**
