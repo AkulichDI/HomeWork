@@ -82,8 +82,28 @@ public class QueueLesson04 {
      * a=[1,2,3], b=[10,20] -> [1,10,2,20,3]
      */
     public static Queue<Integer> mergeAlternating(Queue<Integer> a, Queue<Integer> b) {
-        // TODO
-        return new ArrayDeque<>();
+
+        if (a == null && b == null ) return new ArrayDeque<>();
+        if ( a == null ) return new ArrayDeque<>(b);
+        if ( b == null ) return new ArrayDeque<>(a);
+
+        Queue<Integer> aQ = new ArrayDeque<>(a);
+        Queue<Integer> bQ = new ArrayDeque<>(b);
+        Queue<Integer> result = new ArrayDeque<>();
+
+        int counter = aQ.size()+bQ.size();
+
+        while (!aQ.isEmpty()|| !bQ.isEmpty()){
+
+            if (!aQ.isEmpty()){
+                result.offer(aQ.poll());
+            }
+            if (!bQ.isEmpty()){
+                result.offer(bQ.poll());
+            }
+        }
+
+        return result;
     }
 
     /**
