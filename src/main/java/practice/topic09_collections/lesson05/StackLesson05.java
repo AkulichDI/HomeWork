@@ -1,6 +1,6 @@
 package practice.topic09_collections.lesson05;
 
-import java.util.List;
+import java.util.*;
 
 public class StackLesson05 {
 
@@ -22,8 +22,35 @@ public class StackLesson05 {
      * "(()" -> false
      */
     public static boolean isBracketsBalanced(String s) {
-        // TODO
-        return false;
+
+        if (s == null) return false;
+
+        Deque<Character> stack = new ArrayDeque<>();
+
+        for (char ch : s.toCharArray()) {
+
+            if (ch == '(' || ch == '{' || ch == '[') {
+                stack.push(ch);
+                continue;
+            }
+
+            if (ch == ')' || ch == '}' || ch == ']') {
+
+                if (stack.isEmpty()) return false;
+
+                char top = stack.pop();
+
+                boolean ok =
+                        (ch == ')' && top == '(') ||
+                                (ch == ']' && top == '[') ||
+                                (ch == '}' && top == '{');
+
+                if (!ok) return false;
+            }
+
+        }
+
+        return stack.isEmpty();
     }
 
     /**
