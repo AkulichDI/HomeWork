@@ -86,8 +86,12 @@ public class ComparatorPracticePack2 {
      * 5) Исходный список не менять
      */
     public static List<Task> a3(List<Task> tasks) {
-        // TODO
-        return new ArrayList<>();
+       if ( tasks == null ) return new ArrayList<>();
+
+        return tasks.stream()
+                .filter(Objects::nonNull)
+                .sorted(Comparator.comparingInt(Task::getPriority).reversed())
+                .collect(Collectors.toList());
     }
 
     /**
