@@ -70,7 +70,19 @@ public class StackLesson05 {
      * ["4","13","5","/","+"] -> 6
      */
     public static int evalRPN(List<String> tokens) {
-        // TODO
+
+        if (tokens.isEmpty() && tokens == null) throw new IllegalArgumentException("tokens пустые");
+
+
+
+
+
+
+
+
+
+
+
         return 0;
     }
 
