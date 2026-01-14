@@ -3,7 +3,7 @@ package practice.topic09_collections.lesson06;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class SortLesson06 implements Comparable  {
+public class SortLesson06   {
 
 
     public static void main(String[] args) {
@@ -92,14 +92,12 @@ public class SortLesson06 implements Comparable  {
      * Подсказка: Java сортировка List стабильная, если компаратор для равных возвращает 0.
      */
     public static List<Score> stableSortByScore(List<Score> scores) {
-        // TODO
-        return List.of();
+
+        if (scores == null ) return new ArrayList<>();
+
+        return scores.stream().sorted(Comparator.comparing(Score::getScore).reversed()).collect(Collectors.toList());
     }
 
-    @Override
-    public int compareTo(Object o) {
-        return 0;
-    }
 
 
     public static class Score {
@@ -132,8 +130,18 @@ public class SortLesson06 implements Comparable  {
      * - если value == null -> считать как 0
      */
     public static List<String> sortMapKeysByValueThenKey(Map<String, Integer> map) {
-        // TODO
-        return List.of();
+        if ( map == null ) return new ArrayList<>();
+        Comparator<Integer> sortAsc = Integer::compareTo;
+        return map.entrySet().stream()
+                .sorted(
+                        Comparator
+                                .comparingInt((Map.Entry<String, Integer> e) -> e.getValue() == null ? 0 : e.getValue())
+                                .reversed()
+                                .thenComparing(Map.Entry::getKey)
+                )
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+
     }
 
     /**
@@ -149,11 +157,21 @@ public class SortLesson06 implements Comparable  {
      * - null элементы пропускать
      * - фамилию/имя trim() и blank игнорировать (если у пользователя blank имя/фамилия — пропустить такого пользователя)
      * - исходный список не менять
-     */
-    public static List<User> sortUsers(List<User> users) {
-        // TODO
-        return List.of();
-    }
+         */
+        public static List<User> sortUsers(List<User> users) {
+            if ( users == null ) return new ArrayList<>();
+
+            return users.stream()
+                    .filter(Objects::nonNull)
+                    .filter(u -> u.getLastName() != null && !u.getLastName().trim().isBlank())
+                    .filter(u -> u.getFirstName() != null && !u.getFirstName().trim().isBlank())
+                    .sorted(
+                            Comparator.comparing(u -> u.getLastName().trim(), String.CASE_INSENSITIVE_ORDER)
+                                    .thenComparing(u -> u.getFirstName().trim(), String.CASE_INSENSITIVE_ORDER)
+                                    .thenComparingInt(User::getAge)
+                    )
+                    .collect(Collectors.toList());
+        }
 
     public static class User {
         private final String firstName;
