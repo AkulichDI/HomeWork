@@ -165,11 +165,11 @@ public class SortLesson06   {
                     .filter(Objects::nonNull)
                     .filter(u -> u.getLastName() != null && !u.getLastName().trim().isBlank())
                     .filter(u -> u.getFirstName() != null && !u.getFirstName().trim().isBlank())
-                    .sorted(
+                   /* .sorted(
                             Comparator.comparing(u -> u.getLastName().trim(), String.CASE_INSENSITIVE_ORDER)
                                     .thenComparing(u -> u.getFirstName().trim(), String.CASE_INSENSITIVE_ORDER)
                                     .thenComparingInt(User::getAge)
-                    )
+                    )*/
                     .collect(Collectors.toList());
         }
 
