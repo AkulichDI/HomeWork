@@ -19,6 +19,11 @@ public class SortLesson06 implements Comparable  {
         System.out.println(collection.stream().skip(2).findFirst().get());
         System.out.println(collection.stream().skip(1).limit(2).collect(Collectors.toList()));
 
+        List<Integer> data = new ArrayList<>(Arrays.asList(5,1,4,65,8,76,6,0, null ));
+
+        System.out.println(SortLesson06.topN(data, 2));
+
+
     }
 
 
@@ -65,10 +70,13 @@ public class SortLesson06 implements Comparable  {
     public static List<Integer> topN(List<Integer> nums, int n) {
 
         if ( nums == null || n <= 0 ) return new ArrayList<>();
+        Comparator<Integer> reverseInt = Comparator.reverseOrder();
 
-
-
-        return List.of();
+        return nums.stream()
+                .filter(e -> e != null)
+                .sorted(reverseInt)
+                .limit(n)
+                .collect(Collectors.toList());
     }
 
     /**
