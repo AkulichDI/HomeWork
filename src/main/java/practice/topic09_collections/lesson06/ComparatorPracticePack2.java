@@ -108,7 +108,12 @@ public class ComparatorPracticePack2 {
      * 4) Исходную map не менять
      */
     public static List<Map.Entry<String, Integer>> a4(Map<String, Integer> map) {
-        // TODO
+        if ( map == null ) return  new ArrayList<>();
+
+        List<Map.Entry<String, Integer>> result = map.entrySet().stream()
+                .flatMap()
+                .collect(Collectors.toList());
+
         return new ArrayList<>();
     }
 
