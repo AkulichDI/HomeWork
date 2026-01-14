@@ -61,8 +61,15 @@ public class ComparatorPracticePack2 {
      * [3, -1, -3, 2, null, -2] -> [-1, -2, 2, -3, 3]
      */
     public static List<Integer> a2(List<Integer> nums) {
-        // TODO
-        return new ArrayList<>();
+
+        if (nums == null ) return new ArrayList<>();
+
+
+        return nums.stream()
+                .filter(Objects::nonNull)
+                .sorted(Comparator.comparingInt((Integer el) -> Math.abs(el))
+                        .thenComparing(Integer::compareTo))
+                .collect(Collectors.toList());
     }
 
     /**
