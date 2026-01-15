@@ -42,9 +42,9 @@ public class LambdaTasks10 {
      * " a " -> true
      */
     public static Predicate<String> predicateNonBlank() {
-        // TODO
-        return s -> false;
+        return v -> v != null && !v.trim().isBlank();
     }
+
 
     /**
      * TASK 2: functionNormalizeSpaces
