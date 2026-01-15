@@ -140,8 +140,18 @@ public class ComparatorPracticePack2 {
      *    но сами объекты User не изменять
      */
     public static List<User> a5(List<User> users) {
-        // TODO
-        return new ArrayList<>();
+
+        if(users == null ) return new ArrayList<>();
+
+        return users.stream()
+                .filter(Objects::nonNull)
+                .filter(v -> v.getLastName() != null && !v.getLastName().trim().isBlank())
+                .filter(v -> v.getFirstName() != null && !v.getFirstName().trim().isBlank())
+                .sorted(Comparator.comparing((User v)-> v.getRating()==null?0:v.getRating())
+                        .reversed()
+                        .thenComparing(a -> a.getLastName().trim(),String.CASE_INSENSITIVE_ORDER)
+                        .thenComparing(a -> a.getFirstName().trim(),String.CASE_INSENSITIVE_ORDER))
+                .collect(Collectors.toList());
     }
 
     // ===================== MODELS =====================
