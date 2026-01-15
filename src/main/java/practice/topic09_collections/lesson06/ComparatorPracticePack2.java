@@ -96,9 +96,7 @@ public class ComparatorPracticePack2 {
 
     /**
      * TASK A4: sortEntriesByValueDescThenKeyDescNullAsMinus1
-     *
      * Вход: Map<String, Integer> map
-     *
      * Нужно вернуть НОВЫЙ List<Map.Entry<String,Integer>>:
      * 1) map == null -> []
      * 2) value == null считать как -1
@@ -108,14 +106,19 @@ public class ComparatorPracticePack2 {
      * 4) Исходную map не менять
      */
     public static List<Map.Entry<String, Integer>> a4(Map<String, Integer> map) {
-        if ( map == null ) return  new ArrayList<>();
+        if (map == null) return new ArrayList<>();
 
-        List<Map.Entry<String, Integer>> result = map.entrySet().stream()
-                .flatMap()
+        return map.entrySet().stream()
+                .sorted(
+                        Comparator.<Map.Entry<String, Integer>>comparingInt(
+                                        e -> e.getValue() == null ? -1 : e.getValue()
+                                )
+                                .reversed()
+                                .thenComparing(Map.Entry.<String, Integer>comparingByKey(Comparator.reverseOrder()))
+                )
                 .collect(Collectors.toList());
-
-        return new ArrayList<>();
     }
+
 
     /**
      * TASK A5: sortUsersByRatingDescThenLastNameCIThenFirstNameCI
