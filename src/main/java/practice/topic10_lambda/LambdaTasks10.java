@@ -58,8 +58,11 @@ public class LambdaTasks10 {
      * "  a   b\tc " -> "a b c"
      */
     public static Function<String, String> functionNormalizeSpaces() {
-        // TODO
-        return s -> s;
+        return s -> {
+            if ( s == null ) return null;
+            String t = s.trim();
+            return t.replaceAll("\\s+", " ");
+        };
     }
 
     /**
