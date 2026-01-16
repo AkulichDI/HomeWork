@@ -13,13 +13,13 @@ public class StartOz {
          */
 
     public String startOz(String str) {
-
         String result = "";
+        if (str == null || str.trim().isEmpty() ) return result;
 
-        if ( str.startsWith("o", 0) ){
+        if ( str.length() >= 0 && str.startsWith("o", 0) ){
             result += "o";
         }
-        if (str.startsWith("z",1)){
+        if ( str.length() >= 1 && str.startsWith("z",1)){
             result+= "z";
         }
         return result;
