@@ -128,4 +128,45 @@ public String stringTimes(String str, int n) {
 
         return result + str;
     }
+
+
+
+/*
+    Для заданной строки верните количество вхождений подстроки длиной 2,
+    а также двух последних символов строки, например, для строки «hixxxhi» будет выведено 1 (мы не будем учитывать конечную подстроку).
+
+
+    last2("hixxhi") → 1
+    last2("xaxxaxaxx") → 1
+    last2("axxxaaxx") → 2
+ */
+
+    public int last2(String str) {
+
+        int result = 0;
+
+        if ( str.length() <= 1 ) return result;
+
+        String data = str.substring(str.length()-2);
+
+        for (int i = 0; i < str.length() - 2; i++) {
+
+            if (str.substring(i, i + 2).equals(data) ){
+
+                result++;
+            }
+        }
+        return result;
+    }
+
+
+    public static void main(String[] args) {
+        System.out.println(new Warmup2().last2("hixxhi"));
+    }
+
+
+
+
+
+
 }
