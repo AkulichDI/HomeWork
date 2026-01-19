@@ -179,7 +179,22 @@ public String stringTimes(String str, int n) {
         return count;
     }
 
+/*
+    Дан массив целых чисел. Верните true, если один из первых 4 элементов массива равен 9. Длина массива может быть меньше 4.
+    arrayFront9([1, 2, 9, 3, 4]) → true
+    arrayFront9([1, 2, 3, 4, 9]) → false
+    arrayFront9([1, 2, 3, 4, 5]) → false
+*/
+    public boolean arrayFront9(int[] nums) {
 
+        if (nums == null ) return false;
+
+        for (int i = 0; i < nums.length; i++) {
+            if ( i == 4 ) return false;
+            if (nums[i] == 9) return true;
+        }
+        return false;
+    }
 
 
 
