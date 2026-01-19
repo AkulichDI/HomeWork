@@ -235,6 +235,28 @@ public String stringTimes(String str, int n) {
 
         return count;
     }
+/*
+    Данную строку нужно преобразовать так, чтобы все символы «x» были удалены.
+    Исключение составляет символ «x» в самом начале или в самом конце строки, который удалять не нужно.
+
+    stringX("xxHxix") → "xHix"
+    stringX("abxxxcd") → "abcd"
+    stringX("xabxxxcdx") → "xabcdx"
+
+ */
+
+    public String stringX(String str) {
+
+        String result = "";
+
+        for (int i = 1; i < str.length() - 1 ; i++) {
+            if (str.charAt(i) == 'x') continue;
+            result+=str.charAt(i);
+
+        }
+        return result;
+    }
+
 
 
 }
