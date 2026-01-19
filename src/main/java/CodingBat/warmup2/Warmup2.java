@@ -213,5 +213,28 @@ public String stringTimes(String str, int n) {
 
     }
 
+/*
+    Для двух строк, a и b, верните количество позиций, в которых они содержат подстроку одинаковой длины 2.
+    Например, для строк "xxcaazz" и "xxbaaz" будет выведено 3, так как подстроки "xx", "aa" и "az" встречаются в обеих строках в одних и тех же местах.
+    stringMatch("xxcaazz", "xxbaaz") → 3
+    stringMatch("abc", "abc") → 2
+    stringMatch("abc", "axc") → 0
+
+ */
+
+    public int stringMatch(String a, String b) {
+        int len = Math.min(a.length(), b.length());
+        int count = 0;
+        for (int i=0; i<len-1; i++) {
+            String aSub = a.substring(i, i+2);
+            String bSub = b.substring(i, i+2);
+            if (aSub.equals(bSub)) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
 
 }
