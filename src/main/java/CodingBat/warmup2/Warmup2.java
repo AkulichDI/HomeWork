@@ -159,10 +159,26 @@ public String stringTimes(String str, int n) {
         return result;
     }
 
+/*
+    Дан массив целых чисел. Найдите в нём количество девяток.
 
-    public static void main(String[] args) {
-        System.out.println(new Warmup2().last2("hixxhi"));
+    arrayCount9([1, 2, 9]) → 1
+    arrayCount9([1, 9, 9]) → 2
+    arrayCount9([1, 9, 9, 3, 9]) → 3
+
+*/
+
+    public int arrayCount9(int[] nums) {
+
+        int count = 0;
+        for (int i=0; i<nums.length; i++) {
+            if (nums[i] == 9) {
+                count++;
+            }
+        }
+        return count;
     }
+
 
 
 
