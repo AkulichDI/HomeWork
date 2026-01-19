@@ -196,8 +196,22 @@ public String stringTimes(String str, int n) {
         return false;
     }
 
+/*
+    Дан массив целых чисел. Верните true, если в массиве есть последовательность чисел 1, 2, 3.
 
+    array123([1, 1, 2, 3, 1]) → true
+    array123([1, 1, 2, 4, 1]) → false
+    array123([1, 1, 2, 1, 2, 3]) → true
 
+ */
+    public boolean array123(int[] nums) {
+
+        for (int i = 0; i < nums.length - 2 ; i++) {
+            if ( nums[i] == 1 && nums[i+1] == 2 && nums[i+2]==3)return true;
+        }
+        return false;
+
+    }
 
 
 }
