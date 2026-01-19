@@ -81,9 +81,31 @@ public String stringTimes(String str, int n) {
         int i = str.indexOf("x");
         if (i == -1) return false;
 
-        // Is char at i+1 also an "x"?
+
         if (i+1 >= str.length()) return false;
         return str.substring(i+1, i+2).equals("x");
+    }
+
+/*
+    Для заданной строки верните новую строку, состоящую из всех остальных символов, начиная с первого, то есть «Hello» превратится в «Hlo».
+
+    stringBits("Hello") → "Hlo"
+    stringBits("Hi") → "H"
+    stringBits("Heeololeo") → "Hello"
+*/
+
+
+    public String stringBits(String str) {
+
+        String result = "";
+
+        for (int i = 0; i < str.length(); i++) {
+            if (i % 2 != 0){
+                continue;
+            }
+            result += str.charAt(i);
+        }
+        return  result;
     }
 
 
