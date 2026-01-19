@@ -1,5 +1,9 @@
 package CodingBat.warmup2;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Warmup2 {
     /*
 
@@ -47,6 +51,26 @@ public String stringTimes(String str, int n) {
         }
         return result;
     }
+
+/*
+    Подсчитайте количество «xx» в заданной строке. Допустим, что перекрытие разрешено, поэтому в «xxx» содержится 2 «xx».
+
+    countXX("abcxx") → 1
+    countXX("xxx") → 2
+    countXX("xxxx") → 3
+*/
+
+    int countXX(String str) {
+
+        int count = 0;
+        for (int i = 0; i < str.length()-1; i++) {
+            if (str.substring(i, i+2).equals("xx")) count++;
+        }
+        return count;
+    }
+
+
+
 
 
 }
