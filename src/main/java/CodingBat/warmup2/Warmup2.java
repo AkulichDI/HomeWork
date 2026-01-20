@@ -1,8 +1,7 @@
 package CodingBat.warmup2;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Warmup2 {
     /*
@@ -332,5 +331,25 @@ public String stringTimes(String str, int n) {
 
         return result;
     }
+
+/*
+    Для массива целых чисел тройкой назовём значение, которое встречается в массиве три раза подряд.
+    Верните true, если в массиве нет троек.
+
+    noTriples([1, 1, 2, 2, 1]) → true
+    noTriples([1, 1, 2, 2, 2, 1]) → false
+    noTriples([1, 1, 1, 2, 2, 2, 1]) → false
+ */
+
+    public boolean noTriples(int[] nums) {
+
+            for (int i=0; i < (nums.length-2); i++) {
+                int first = nums[i];
+                if (nums[i+1]==first && nums[i+2]==first) return false;
+            }
+
+        return true;
+    }
+
 
 }
