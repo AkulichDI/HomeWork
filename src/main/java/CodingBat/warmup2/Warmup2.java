@@ -287,4 +287,23 @@ public String stringTimes(String str, int n) {
 
 
 
+/*
+    Предположим, что строка «yak» приносит несчастье. Данную строку нужно преобразовать так, чтобы из неё исчезли все «yak», но при этом «a» могла быть любым символом.
+    Строки «yak» не должны пересекаться.
+
+    stringYak("yakpak") → "pak"
+    stringYak("pakyak") → "pak"
+    stringYak("yak123ya") → "123ya"
+*/
+
+        public String stringYak(String str) {
+            String result = str.replaceAll("y.k", "");
+
+            return result;
+        }
+
+    public static void main(String[] args) {
+        System.out.println(new Warmup2().stringYak("xxxyakyyyakzzz"));
+    }
+
 }
