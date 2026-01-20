@@ -306,4 +306,29 @@ public String stringTimes(String str, int n) {
         System.out.println(new Warmup2().stringYak("xxxyakyyyakzzz"));
     }
 
+
+/*
+
+    Дан массив целых чисел.
+    Верните количество пар чисел 6, расположенных рядом в массиве.
+    Также посчитайте количество случаев, когда вторая «6» на самом деле является числом 7.
+
+    array667([6, 6, 2]) → 1
+    array667([6, 6, 2, 6]) → 1
+    array667([6, 7, 2, 6]) → 1
+*/
+    public int array667(int[] nums) {
+
+        int result = 0;
+
+        for (int i = 0; i < nums.length - 1; i++) {
+
+            if ( nums[i] == 6 && nums[i+1] == 6 || nums[i] == 6 && nums[i+1] == 7){
+                result++;
+            }
+        }
+
+        return result;
+    }
+
 }
