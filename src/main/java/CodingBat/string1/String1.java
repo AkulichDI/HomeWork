@@ -170,7 +170,68 @@ public class String1 {
         return str.substring(2)+ str.substring(0,2);
     }
 
+/*
+    Для заданной строки верните «повернутую вправо на 2 символа» версию, в которой последние 2 символа перемещены в начало. Длина строки должна быть не менее 2 символов.
+    right2("Hello") → "loHel"
+    right2("java") → "vaja"
+    right2("Hi") → "Hi"
 
+ */
+    public String right2(String str) {
+        if ( str.length() < 1 ) return str;
+        return str.substring(str.length()-2) + str.substring(0,str.length()-2);
+
+    }
+    /*
+    Для заданной строки верните строку длиной 1, начинающуюся с её начала, если только начало не равно false, в этом случае верните строку длиной 1, начинающуюся с конца.
+     Строка не будет пустой.
+
+
+    theEnd("Hello", true) → "H"
+    theEnd("Hello", false) → "o"
+    theEnd("oh", true) → "o"
+
+     */
+
+    public String theEnd(String str, boolean front) {
+        if (front){
+            return str.substring(0,1);
+        }else{
+            return str.substring(str.length()-1);
+        }
+    }
+
+/*
+    Данную строку нужно преобразовать так, чтобы в ней не было ни первого, ни последнего символа.
+    Строка может быть любой длины, включая 0.
+
+    withouEnd2("Hello") → "ell"
+    withouEnd2("abc") → "b"
+    withouEnd2("ab") → ""
+
+ */
+
+    public String withouEnd2(String str) {
+        if (str == null || str.trim().isEmpty()) return "";
+        if (str.length() <=1) return "";
+
+        return str.substring(1, str.length()-1);
+    }
+
+/*
+    Для строки чётной длины верните строку, состоящую из двух средних символов, например, для строки «string» верните «ri».
+    Длина строки будет не менее 2.
+    middleTwo("string") → "ri"
+    middleTwo("code") → "od"
+    middleTwo("Practice") → "ct"
+
+ */
+
+    public String middleTwo(String str) {
+        if (str.length() <=1) return str;
+        return str.substring(str.length()/2 - 1 , str.length()/2 +1);
+
+    }
 
 
 
