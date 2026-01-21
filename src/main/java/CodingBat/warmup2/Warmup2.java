@@ -373,6 +373,18 @@ public String stringTimes(String str, int n) {
 
 
 
+    boolean doubleXX(String str) {
+        for (int i = 0; i < str.length()-1; i++) {
+            System.out.println(str.charAt(i) +" : " + str.charAt(i+1));
+            if ( str.charAt(i) == str.charAt(i+1) && str.charAt(i) == 'x' || str.charAt(i) == str.charAt(i+1) && str.charAt(i) == 'X' ) return true;
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+        String data = "aabbtrxytxx";
+        System.out.println(new Warmup2().doubleXX(data));
+    }
 
 
 }
