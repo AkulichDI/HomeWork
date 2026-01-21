@@ -350,6 +350,29 @@ public String stringTimes(String str, int n) {
 
         return true;
     }
+/*
+    Подсчитайте количество «xx» в заданной строке. Допустим, что перекрытие разрешено, поэтому в «xxx» содержится 2 «xx».
+    countXX("abcxx") → 1
+    countXX("xxx") → 2
+    countXX("xxxx") → 3
+
+ */
+
+
+        int countXXXXl(String str) {
+            if (str == null  || str.trim().isEmpty()) return 0;
+            int counter = 0;
+
+            for (int i = 0; i < str.length()-1; i++) {
+                if (str.charAt(i) == str.charAt(i + 1) && str.charAt(i) == 'x' || str.charAt(i) == str.charAt(i + 1) && str.charAt(i) == 'X') {
+                    counter++;
+                }
+            }
+            return counter;
+        }
+
+
+
 
 
 }
