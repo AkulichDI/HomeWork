@@ -56,4 +56,39 @@ public class String1 {
         return out.substring(0,2) + word + out.substring(2);
     }
 
+
+
+/*
+    Дана строка. Верните новую строку, состоящую из трёх копий двух последних символов исходной строки. Длина строки будет не менее 2.
+
+    extraEnd("Hello") → "lololo"
+    extraEnd("ab") → "ababab"
+    extraEnd("Hi") → "HiHiHi"
+*/
+    public String extraEnd(String str) {
+        String result = "";
+        for (int i = 0; i < 3; i++) {
+            result += str.substring(str.length()-2);
+        }
+        return result;
+    }
+
+/*
+    Для заданной строки верните строку, состоящую из первых двух символов исходной строки. Например, для строки «Hello» верните «He».
+    Если длина строки меньше двух символов, верните то, что есть, например, для строки «X» верните «X», а для пустой строки верните пустую строку. Обратите внимание,
+     что str.length() возвращает длину строки.
+
+    firstTwo("Hello") → "He"
+    firstTwo("abcdefg") → "ab"
+    firstTwo("ab") → "ab"
+
+ */
+
+    public String firstTwo(String str) {
+        if ( str.length() <= 1 ) return str;
+
+        return str.substring(0,2);
+
+    }
+
 }
