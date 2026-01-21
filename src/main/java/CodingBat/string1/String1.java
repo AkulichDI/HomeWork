@@ -1,5 +1,7 @@
 package CodingBat.string1;
 
+import java.util.Locale;
+
 public class String1 {
 
 /*
@@ -90,5 +92,86 @@ public class String1 {
         return str.substring(0,2);
 
     }
+
+/*
+    Для строки чётной длины верните первую половину. Таким образом, строка «WooHoo» преобразуется в «Woo»
+    firstHalf("WooHoo") → "Woo"
+    firstHalf("HelloThere") → "Hello"
+    firstHalf("abcdef") → "abc"
+
+ */
+
+    public String firstHalf(String str) {
+
+        if (str.length() % 2 == 0 ) return str.substring(0,str.length()/2);
+        else return str;
+
+    }
+
+
+/*
+    Для заданной строки верните версию без первого и последнего символов, чтобы из "Hello" получилось "ell". Длина строки будетне меньше 2.
+
+    withoutEnd("Hello") → "ell"
+    withoutEnd("java") → "av"
+    withoutEnd("coding") → "odin"
+
+ */
+
+    public String withoutEnd(String str) {
+        if ( str.length() >= 1 ) return str.substring(1,str.length() - 1);
+        return str;
+    }
+
+/*
+    Даны две строки, a и b. Верните строку в формате short+long+short, где более короткая строка находится снаружи, а более длинная — внутри.
+    Строки не будут иметь одинаковую длину, но могут быть пустыми (длина 0).
+
+    comboString("Hello", "hi") → "hiHellohi"
+    comboString("hi", "Hello") → "hiHellohi"
+    comboString("aaa", "b") → "baaab
+
+ */
+
+    public String comboString(String a, String b) {
+        if ( a.length() > b.length()  ) return b + a + b;
+        else return a + b + a;
+    }
+
+
+/*
+    Даны две строки. Верните их конкатенацию, за исключением первого символа каждой из них.
+    Длина строк должна быть не меньше 1.
+
+    nonStart("Hello", "There") → "ellohere"
+    nonStart("java", "code") → "avaode"
+    nonStart("shotl", "java") → "hotlava"
+
+ */
+
+    public String nonStart(String a, String b) {
+        if (a == null || a.trim().isEmpty() || b == null || b.trim().isEmpty()) return a + b;
+        return a.substring(1) + b.substring(1);
+
+
+    }
+
+/*
+    Для заданной строки верните «повёрнутую влево на 2 символа» версию, в которой первые 2 символа перемещены в конец. Длина строки будет не менее 2 символов.
+
+    left2("Hello") → "lloHe"
+    left2("java") → "vaja"
+    left2("Hi") → "Hi"
+
+ */
+
+    public String left2(String str) {
+        if ( str.length() < 1 ) return str;
+        return str.substring(2)+ str.substring(0,2);
+    }
+
+
+
+
 
 }
