@@ -301,9 +301,6 @@ public String stringTimes(String str, int n) {
             return result;
         }
 
-    public static void main(String[] args) {
-        System.out.println(new Warmup2().stringYak("xxxyakyyyakzzz"));
-    }
 
 
 /*
@@ -359,7 +356,7 @@ public String stringTimes(String str, int n) {
  */
 
 
-        int countXXXXl(String str) {
+      public int countXXXXl(String str) {
             if (str == null  || str.trim().isEmpty()) return 0;
             int counter = 0;
 
@@ -372,11 +369,23 @@ public String stringTimes(String str, int n) {
         }
 
 
+/*
+    Для заданной строки верните значение true, если за первым вхождением символа «x» в строке сразу следует другой символ «x».
+
+    doubleX("axxbb") → true
+    doubleX("axaxax") → false
+    doubleX("xxxxx") → true
+*/
 
     boolean doubleXX(String str) {
         for (int i = 0; i < str.length()-1; i++) {
-            System.out.println(str.charAt(i) +" : " + str.charAt(i+1));
-            if ( str.charAt(i) == str.charAt(i+1) && str.charAt(i) == 'x' || str.charAt(i) == str.charAt(i+1) && str.charAt(i) == 'X' ) return true;
+            if ( str.charAt(i)== 'X' || str.charAt(i)== 'x' ) {
+                if (str.charAt(i) == str.charAt(i + 1) || str.charAt(i) == str.charAt(i + 1)){
+                    return true;
+                }else {
+                    return false;
+                }
+            }
         }
         return false;
     }
