@@ -396,4 +396,21 @@ public String stringTimes(String str, int n) {
     }
 
 
+/*
+    Для заданной строки верните новую строку, состоящую из всех остальных символов, начиная с первого, то есть «Hello» превратится в «Hlo».
+    stringBits("Hello") → "Hlo"
+    stringBits("Hi") → "H"
+    stringBits("Heeololeo") → "Hello"
+
+ */
+
+    public String stringBits1(String str) {
+        String result = "";
+        for (int i = 0; i < str.length(); i += 2 ) {
+            result += str.charAt(i);
+        }
+        return result;
+    }
+
+
 }
