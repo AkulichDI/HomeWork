@@ -310,6 +310,22 @@ public class Array1 {
         return new int[] {nums[nums.length/2 - 1 ], nums[(nums.length/2)]};
     }
 
+/*
+    Даны 2 массива int длиной 2 каждый. Верните новый массив длиной 4, содержащий все их элементы.
 
+    plusTwo([1, 2], [3, 4]) → [1, 2, 3, 4]
+    plusTwo([4, 4], [2, 2]) → [4, 4, 2, 2]
+    plusTwo([9, 2], [3, 4]) → [9, 2, 3, 4]
+ */
+    public int[] plusTwo(int[] a, int[] b) {
+
+        int[] result = new int[a.length + b.length];
+        int k = 0;
+
+        for ( int x : a ) result[k++] = x;
+        for ( int x : b ) result[k++] = x;
+
+        return result;
+    }
 
 }
