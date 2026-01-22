@@ -77,8 +77,25 @@ public class Array1 {
         return result;
     }
 
+/*
+    Дан массив целых чисел длиной 3. Верните массив, в котором элементы «повернуты влево», то есть {1, 2, 3} преобразуется в {2, 3, 1}.
+
+    rotateLeft3([1, 2, 3]) → [2, 3, 1]
+    rotateLeft3([5, 11, 9]) → [11, 9, 5]
+    rotateLeft3([7, 0, 0]) → [0, 0, 7]
+ */
 
 
+    public int[] rotateLeft3(int[] nums) {
+
+        int[] result = new int[nums.length];
+        for (int i = 0; i < nums.length - 1; i++) {
+            result[i] = nums[i + 1];
+        }
+        result[nums.length - 1] = nums[0];
+        return result;
+
+    }
 
 
 
