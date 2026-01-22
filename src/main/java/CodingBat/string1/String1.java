@@ -288,4 +288,20 @@ public class String1 {
         return str.substring(mid - 1, mid + 2);
     }
 
+
+/*
+    Для заданной строки верните true, если в строке есть «bad», начиная с индекса 0 или 1, например «badxxx» или «xbadxx», но не «xxbadxx». Строка может быть любой длины, включая 0.
+    Примечание: для сравнения двух строк используйте .equals().
+
+    hasBad("badxx") → true
+    hasBad("xbadxx") → true
+    hasBad("xxbadxx") → false
+
+ */
+    public boolean hasBad(String str) {
+        if (str == null || str.length() < 3) return false;
+        if (str.substring(0, 3).equals("bad")) return true;
+        if (str.length() >= 4 && str.substring(1, 4).equals("bad")) return true;
+        return false;
+    }
 }
