@@ -1,5 +1,8 @@
 package CodingBat.array1;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 public class Array1 {
 
     /*
@@ -261,6 +264,20 @@ public class Array1 {
         if ( counter3 >= 2  ) return true;
 
         return false;
+    }
+
+/*
+    Дан массив int длиной 3. Если в массиве есть число 2, за которым сразу следует число 3, установите для элемента 3 значение 0. Верните изменённый массив.
+
+    fix23([1, 2, 3]) → [1, 2, 0]
+    fix23([2, 3, 5]) → [2, 0, 5]
+    fix23([1, 2, 1]) → [1, 2, 1]
+*/
+
+    public int[] fix23(int[] nums) {
+        if (nums[0] == 2 && nums[1] == 3) nums[1] = 0;
+        if (nums[1] == 2 && nums[2] == 3) nums[2] = 0;
+        return nums;
     }
 
 }
