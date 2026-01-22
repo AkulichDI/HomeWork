@@ -61,7 +61,21 @@ public class Array1 {
 
     }
 
+    /*
+    Дан массив целых чисел длиной 3. Верните сумму всех элементов.
 
+    sum3([1, 2, 3]) → 6
+    sum3([5, 11, 2]) → 18
+    sum3([7, 0, 0]) → 7
+    */
+
+    public int sum3(int[] nums) {
+        int result = 0;
+        for ( int el : nums){
+            result += el;
+        }
+        return result;
+    }
 
 
 
