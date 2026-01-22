@@ -187,4 +187,20 @@ public class Array1 {
 
     }
 
+/*
+    Дан массив int длиной 2. Верните true, если в нём есть число 2 или 3.
+
+    has23([2, 5]) → true
+    has23([4, 3]) → true
+    has23([4, 5]) → false
+ */
+
+    public boolean has23(int[] nums) {
+
+        for (int el : nums ){
+            if (el == 2 || el == 3) return true;
+        }
+        return false;
+    }
+
 }
