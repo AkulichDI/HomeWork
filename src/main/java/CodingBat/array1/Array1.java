@@ -237,4 +237,30 @@ public class Array1 {
     }
 
 
+
+/*
+    Дан массив целых чисел. Верните true, если в массиве дважды встречается число 2 или дважды встречается число 3.
+    Длина массива может быть равна 0, 1 или 2.
+
+    double23([2, 2]) → true
+    double23([3, 3]) → true
+    double23([2, 3]) → false
+*/
+
+    public boolean double23(int[] nums) {
+
+        int counter2 = 0;
+        int counter3 = 0;
+
+        for (int el : nums){
+            if ( el == 2 ) counter2++;
+            if ( el == 3 ) counter3++;
+        }
+
+        if ( counter2 >= 2  ) return true;
+        if ( counter3 >= 2  ) return true;
+
+        return false;
+    }
+
 }
