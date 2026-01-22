@@ -366,4 +366,22 @@ public class String1 {
         return a + b;
     }
 
+/*
+    Для строки любой длины верните новую строку, в которой последние два символа, если они есть, поменяны местами, то есть из «coding» получится «codign».
+
+    lastTwo("coding") → "codign"
+    lastTwo("cat") → "cta"
+    lastTwo("ab") → "ba"
+
+ */
+
+   public String lastTwo(String str) {
+    if (str == null || str.isEmpty()) return "";
+    if (str.length() < 2) return str;
+
+    int n = str.length();
+    return str.substring(0, n - 2) + str.charAt(n - 1) + str.charAt(n - 2);
+}
+
+
 }
