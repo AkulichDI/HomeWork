@@ -328,4 +328,40 @@ public class Array1 {
         return result;
     }
 
+/*
+    Дан массив целых чисел.
+    Поменяйте местами первый и последний элементы массива.
+    Верните изменённый массив.
+    Длина массива будет не меньше 1.
+
+    swapEnds([1, 2, 3, 4]) → [4, 2, 3, 1]
+    swapEnds([1, 2, 3]) → [3, 2, 1]
+    swapEnds([8, 6, 7, 9, 5]) → [5, 6, 7, 9, 8]
+ */
+
+
+    public int[] swapEnds(int[] nums) {
+        int[] result = new int[nums.length];
+           result[0] = nums[nums.length - 1];
+           result[nums.length - 1] = nums[0];
+        for (int i = 1; i < nums.length - 1; i++) {
+
+            result[i] = nums[i];
+
+        }
+        /*
+            int first = nums[0];
+            int end = nums[nums.length = 1 ]
+
+            nums[0] = end;
+            nums[nums.length - 1 ] = first;
+            return nums;
+         */
+        return result;
+
+
+
+    }
+
+
 }
