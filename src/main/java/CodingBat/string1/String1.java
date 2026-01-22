@@ -304,4 +304,28 @@ public class String1 {
         if (str.length() >= 4 && str.substring(1, 4).equals("bad")) return true;
         return false;
     }
+
+
+
+
+
+/*
+    Данную строку нужно преобразовать в строку длиной 2 символа, состоящую из первых 2 символов исходной строки.
+    Если длина строки меньше 2, используйте '@' для недостающих символов.
+
+    atFirst("hello") → "he"
+    atFirst("hi") → "hi"
+    atFirst("h") → "h@"
+
+ */
+
+
+    public String atFirst(String str) {
+        System.out.println(str.length() < 2);
+        if (str == null || str.trim().isEmpty()) return "@@";
+        if (str.length() < 2  ) return str.substring(0) + "@";
+
+        return  str.substring(0,2);
+    }
+
 }
