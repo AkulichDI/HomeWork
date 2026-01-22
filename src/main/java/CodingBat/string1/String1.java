@@ -232,7 +232,60 @@ public class String1 {
         return str.substring(str.length()/2 - 1 , str.length()/2 +1);
 
     }
+/*
+    Для заданной строки верните значение true, если она заканчивается на «ly».
 
+    endsLy("oddly") → true
+    endsLy("y") → false
+    endsLy("oddy") → false
 
+ */
+    public boolean endsLy(String str) {
+        if ( str == null || str.length() <=1 ||  str.trim().isEmpty() ) return false;
+       if (str.substring(str.length()-2 ).equals("ly"))return true;
+       return false;
+
+    }
+
+/*
+    Данная строка и целое число n. Вернуть строку, состоящую из первых и последних n символов исходной строки. Длина строки будет не меньше n.
+
+    nTwice("Hello", 2) → "Helo"
+    nTwice("Chocolate", 3) → "Choate"
+    nTwice("Chocolate", 1) → "Ce"
+ */
+
+    public String nTwice(String str, int n) {
+        return str.substring(0,n) + str.substring(str.length()-n);
+
+    }
+/*
+    Данную строку и индекс. Вернуть строку длиной 2 символа, начинающуюся с указанного индекса.
+    Если индекс слишком велик или слишком мал для определения строки длиной 2 символа, использовать первые 2 символа. Длина строки будет не менее 2 символов.
+
+    twoChar("java", 0) → "ja"
+    twoChar("java", 2) → "va"
+    twoChar("java", 3) → "ja"
+
+*/
+
+    public String twoChar(String str, int index) {
+        if( index < 0 || index > str.length() - 2 ) return str.substring(0,2);
+        return str.substring(index , index + 2 );
+
+    }
+
+/*
+    Дана строка нечётной длины. Верните строку длиной 3 символа, начиная с середины, например, из строки «Candy» получится «and». Длина строки будет не меньше 3 символов.
+
+    middleThree("Candy") → "and"
+    middleThree("and") → "and"
+    middleThree("solving") → "lvi"
+
+ */
+    public String middleThree(String str) {
+        int mid = str.length() / 2;
+        return str.substring(mid - 1, mid + 2);
+    }
 
 }
