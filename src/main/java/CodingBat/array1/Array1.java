@@ -44,6 +44,23 @@ public class Array1 {
     }
 
 
+/*
+    Даны два массива целых чисел a и b.
+    Верните true, если у них одинаковый первый элемент или одинаковый последний элемент.
+    Оба массива будут иметь длину 1 или больше.
+
+    commonEnd([1, 2, 3], [7, 3]) → true
+    commonEnd([1, 2, 3], [7, 3, 2]) → false
+    commonEnd([1, 2, 3], [1, 3]) → true
+ */
+
+    public boolean commonEnd(int[] a, int[] b) {
+
+       if ( a[0] == b[0] || a[a.length-1] == b[b.length-1]) return true;
+       return false;
+
+    }
+
 
 
 
