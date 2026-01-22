@@ -137,5 +137,21 @@ public class Array1 {
         return result;
     }
 
+/*
+    Дан массив целых чисел. Верните сумму первых двух элементов массива. Если длина массива меньше 2, просто сложите имеющиеся элементы и верните 0, если длина массива равна 0.
+
+    sum2([1, 2, 3]) → 3
+    sum2([1, 1]) → 2
+    sum2([1, 1, 1, 1]) → 2
+ */
+
+    public int sum2(int[] nums) {
+        if ( nums == null || nums.length == 0) return 0;
+        if ( nums.length-1  < 1) return nums[0];
+
+        return nums[0] + nums[1];
+
+    }
+
 
 }
