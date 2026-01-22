@@ -280,4 +280,20 @@ public class Array1 {
         return nums;
     }
 
+/*
+    Начните с двух массивов int, a и b, любой длины. Верните количество массивов, в которых 1 является первым элементом.
+
+    start1([1, 2, 3], [1, 3]) → 2
+    start1([7, 2, 3], [1]) → 1
+    start1([1, 2], []) → 1
+ */
+
+    public int start1(int[] a, int[] b) {
+        int count = 0;
+
+        if (a != null && a.length > 0 && a[0] == 1) count++;
+        if (b != null && b.length > 0 && b[0] == 1) count++;
+
+        return count;
+    }
 }
