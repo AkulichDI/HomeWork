@@ -403,5 +403,21 @@ public class String1 {
 
     }
 
+/*
+    Для заданной строки верните true, если первые два символа строки также встречаются в её конце, как, например, в строке «edited».
+
+    frontAgain("edited") → true
+    frontAgain("edit")   → false
+    frontAgain("ed")     → true
+*/
+    public boolean frontAgain(String str) {
+    if (str == null || str.length() < 2) return false;
+    return str.substring(0, 2).equals(str.substring(str.length() - 2));
+}
+
+
+    public static void main(String[] args) {
+        System.out.println(new String1().frontAgain("edited"));
+    }
 
 }
