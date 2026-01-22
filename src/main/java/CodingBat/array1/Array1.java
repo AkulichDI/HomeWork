@@ -117,5 +117,25 @@ public class Array1 {
 
     }
 
+/*
+    Дан массив целых чисел длиной 3. Определите, какой элемент больше — первый или последний, — и присвойте этому значению все остальные элементы.
+    Верните изменённый массив.
+
+    maxEnd3([1, 2, 3]) → [3, 3, 3]
+    maxEnd3([11, 5, 9]) → [11, 11, 11]
+    maxEnd3([2, 11, 3]) → [3, 3, 3]
+*/
+
+
+
+    public int[] maxEnd3(int[] nums) {
+        int el = Math.max(nums[0], nums[nums.length -1 ]); ;
+        int[] result = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            result[i] = el;
+        }
+        return result;
+    }
+
 
 }
