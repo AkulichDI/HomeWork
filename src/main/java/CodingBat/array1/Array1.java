@@ -296,4 +296,20 @@ public class Array1 {
 
         return count;
     }
+
+/*
+    Дан массив целых чисел чётной длины. Верните новый массив длиной 2, содержащий два средних элемента исходного массива. Исходный массив должен иметь длину 2 или больше.
+
+    makeMiddle([1, 2, 3, 4]) → [2, 3]
+    makeMiddle([7, 1, 2, 3, 4, 9]) → [2, 3]
+    makeMiddle([1, 2]) → [1, 2]
+*/
+
+    public int[] makeMiddle(int[] nums) {
+
+        return new int[] {nums[nums.length/2 - 1 ], nums[(nums.length/2)]};
+    }
+
+
+
 }
