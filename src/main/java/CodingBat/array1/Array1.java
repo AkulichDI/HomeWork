@@ -377,6 +377,22 @@ public class Array1 {
 
     }
 
+/*
+
+    Дан массив целых чисел нечётной длины.
+    Найдите наибольшее из первого, последнего и среднего значений в массиве.
+    Длина массива будет не меньше 1.
+
+    maxTriple([1, 2, 3]) → 3
+    maxTriple([1, 5, 3]) → 5
+    maxTriple([5, 2, 3]) → 5
+ */
+
+    public int maxTriple(int[] nums) {
+
+        int tmp = Math.max(nums[0] , nums[nums.length / 2 ]);
+        return Math.max(tmp, nums[nums.length- 1 ]);
+    }
 
 
 }
