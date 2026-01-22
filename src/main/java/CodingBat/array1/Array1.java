@@ -217,7 +217,23 @@ public class Array1 {
             if (el == 2 || el == 3) return false;
         }
         return true;
+    }
 
+/*
+    Дан массив int. Верните новый массив с удвоенной длиной, в котором последний элемент совпадает с последним элементом исходного массива, а все остальные элементы равны 0.
+    Исходный массив должен иметь длину 1 или больше.
+    Примечание: по умолчанию новый массив int содержит только нули.
+
+    makeLast([4, 5, 6]) → [0, 0, 0, 0, 0, 6]
+    makeLast([1, 2]) → [0, 0, 0, 2]
+    makeLast([3]) → [0, 3]
+*/
+
+    public int[] makeLast(int[] nums) {
+
+        int[] result = new int[nums.length * 2];
+        result[result.length - 1] = nums[nums.length - 1];
+        return result;
     }
 
 
