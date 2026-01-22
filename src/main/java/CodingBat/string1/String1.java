@@ -381,7 +381,27 @@ public class String1 {
 
     int n = str.length();
     return str.substring(0, n - 2) + str.charAt(n - 1) + str.charAt(n - 2);
-}
+   }
+
+/*
+    Если строка начинается с «red» или «blue», верните строку с названием цвета, в противном случае верните пустую строку.
+
+    seeColor("redxx") → "red"
+    seeColor("xxred") → ""
+    seeColor("blueTimes") → "blue"
+*/
+
+    public String seeColor(String str) {
+        if ( str == null || str.isEmpty()) return "";
+        if (str.length() > 2 ) {
+            if (str.substring(0, 3).equals("red")) return "red";
+            if (str.length() > 3) {
+                if (str.substring(0, 4).equals("blue")) return "blue";
+            }
+        }
+        return "";
+
+    }
 
 
 }
