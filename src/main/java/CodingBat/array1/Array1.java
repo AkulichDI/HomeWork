@@ -203,4 +203,22 @@ public class Array1 {
         return false;
     }
 
+/*
+    Для массива int длиной 2 верните true, если в нём нет чисел 2 или 3.
+
+    no23([4, 5]) → true
+    no23([4, 2]) → false
+    no23([3, 5]) → false
+ */
+
+    public boolean no23(int[] nums) {
+
+        for (int el : nums ){
+            if (el == 2 || el == 3) return false;
+        }
+        return true;
+
+    }
+
+
 }
