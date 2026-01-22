@@ -97,6 +97,25 @@ public class Array1 {
 
     }
 
+/*
+    Дан массив целых чисел длиной 3. Верните новый массив с элементами в обратном порядке, то есть {1, 2, 3} станет {3, 2, 1}.
+
+    reverse3([1, 2, 3]) → [3, 2, 1]
+    reverse3([5, 11, 9]) → [9, 11, 5]
+    reverse3([7, 0, 0]) → [0, 0, 7]
+*/
+
+    public int[] reverse3(int[] nums) {
+
+        int[] result = new int[nums.length];
+        int counter= nums.length-1;
+
+        for (int i = 0; i < nums.length; i++) {
+            result[i] = nums[counter--];
+        }
+        return result;
+
+    }
 
 
 }
