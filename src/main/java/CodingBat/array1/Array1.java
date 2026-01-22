@@ -18,6 +18,31 @@ public class Array1 {
         return false;
     }
 
+    /*
+    Для заданного массива целых чисел верните true, если длина массива равна 1 или больше, а первый и последний элементы равны.
+
+    sameFirstLast([1, 2, 3]) → false
+    sameFirstLast([1, 2, 3, 1]) → true
+    sameFirstLast([1, 2, 1]) → true
+     */
+
+    public boolean sameFirstLast(int[] nums) {
+        if ( nums.length >= 1 && nums[0] == nums[nums.length - 1 ] ) return true;
+        return false;
+    }
+
+/*
+    Верните массив int длиной 3, содержащий первые 3 цифры числа пи: {3, 1, 4}.
+    makePi() → [3, 1, 4]
+
+ */
+
+    public int[] makePi() {
+
+        return new int[]{3,1,4};
+
+    }
+
 
 
 
