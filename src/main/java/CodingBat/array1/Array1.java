@@ -359,9 +359,24 @@ public class Array1 {
          */
         return result;
 
+    }
 
+
+/*
+    Дан массив целых чисел нечётной длины. Верните новый массив длиной 3, содержащий элементы из середины исходного массива.
+    Длина массива должна быть не меньше 3.
+
+    midThree([1, 2, 3, 4, 5]) → [2, 3, 4]
+    midThree([8, 6, 7, 5, 3, 0, 9]) → [7, 5, 3]
+    midThree([1, 2, 3]) → [1, 2, 3]
+*/
+
+    public int[] midThree(int[] nums) {
+
+        return new int[]{ nums[(nums.length / 2) - 1],nums[nums.length /2  ], nums[nums.length/2 + 1 ]};
 
     }
+
 
 
 }
