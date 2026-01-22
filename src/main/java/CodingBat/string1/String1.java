@@ -328,4 +328,42 @@ public class String1 {
         return  str.substring(0,2);
     }
 
+
+/*
+    Даны две строки, a и b. Верните новую строку, состоящую из первого символа строки a и последнего символа строки b, например, из "yo" и "java" получится "ya".
+    Если длина одной из строк равна 0, используйте '@' вместо отсутствующего символа.
+
+    lastChars("last", "chars") → "ls"
+    lastChars("yo", "java") → "ya"
+
+
+*/
+
+    public String lastChars(String a, String b) {
+
+        String first = (a == null || a.isEmpty()) ? "@" : a.substring(0, 1);
+        String last = (b == null || b.isEmpty()) ? "@" : b.substring(b.length() - 1);
+        return first + last;
+    }
+
+/*
+    Даны две строки. Объедините их (это называется «конкатенацией») и верните результат.
+    Однако если в результате конкатенации получается двухсимвольная строка, то один из символов опускается, то есть «abc» и «cat» дают «abcat».
+
+    conCat("abc", "cat") → "abcat"
+    conCat("dog", "cat") → "dogcat"
+    conCat("abc", "") → "abc"
+*/
+
+    public String conCat(String a, String b) {
+
+        if (a == null && b == null )return "";
+        if (a == null || a.trim().isEmpty()) return b;
+        if (b == null || b.trim().isEmpty()) return a;
+        if ( a.substring(a.length()-1).equals(b.substring(0,1))){
+            return  a.substring(0) + b.substring(1);
+        }
+        return a + b;
+    }
+
 }
