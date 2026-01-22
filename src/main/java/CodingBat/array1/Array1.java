@@ -153,5 +153,23 @@ public class Array1 {
 
     }
 
+/*
+
+    Даны два массива целых чисел a и b длиной 3 каждый. Верните новый массив длиной 2, содержащий их средние элементы.
+
+
+    middleWay([1, 2, 3], [4, 5, 6]) → [2, 5]
+    middleWay([7, 7, 7], [3, 8, 0]) → [7, 8]
+    middleWay([5, 2, 9], [1, 4, 5]) → [2, 4]
+*/
+
+    public int[] middleWay(int[] a, int[] b) {
+
+        int[] result = new int[2];
+        result[0] = a[1];
+        result[1] = b[1];
+        return result;
+
+    }
 
 }
