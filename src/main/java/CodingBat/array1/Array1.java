@@ -412,4 +412,26 @@ public class Array1 {
 
     }
 
+/*
+    Будем считать, что единица, за которой в массиве сразу следует тройка, — это «неудачная» единица.
+    Верните true, если в заданном массиве есть «неудачная» единица на первых двух или последних двух позициях.
+
+    unlucky1([1, 3, 4, 5]) → true
+    unlucky1([2, 1, 3, 4, 5]) → true
+    unlucky1([1, 1, 1]) → false
+*/
+
+    public boolean unlucky1(int[] nums) {
+
+        int n = nums.length;
+        if (n < 2) return false;
+
+        boolean start = (nums[0] == 1 && nums[1] == 3) || (n > 2 && nums[1] == 1 && nums[2] == 3);
+        boolean end = nums[n - 2] == 1 && nums[n - 1] == 3;
+
+        return start || end;
+
+    }
+
+
 }
