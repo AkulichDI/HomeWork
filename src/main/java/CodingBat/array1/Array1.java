@@ -395,4 +395,21 @@ public class Array1 {
     }
 
 
+
+/*
+    Для массива int любой длины верните новый массив, состоящий из первых двух элементов.
+    Если длина массива меньше 2, используйте все имеющиеся элементы.
+
+    frontPiece([1, 2, 3]) → [1, 2]
+    frontPiece([1, 2]) → [1, 2]
+    frontPiece([1]) → [1]
+*/
+
+    public int[] frontPiece(int[] nums) {
+        if ( nums.length < 2 ) return nums;
+
+        return new int[]{nums[0], nums[1]};
+
+    }
+
 }
