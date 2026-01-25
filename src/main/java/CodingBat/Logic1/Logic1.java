@@ -44,6 +44,29 @@ public class Logic1 {
 
     }
 
+/*
+
+    Белки в Пало-Альто проводят большую часть дня за играми.
+    В частности, они играют, если температура находится в диапазоне от 60 до 90 градусов (включительно).
+    Если только не лето, то верхний предел составляет 100 градусов, а не 90.
+    Учитывая целочисленное значение температуры и логическое значение isSummer, верните true, если белки играют, и false в противном случае.
+
+    squirrelPlay(70, false) → true
+    squirrelPlay(95, false) → false
+    squirrelPlay(95, true) → true
+ */
+    public boolean squirrelPlay(int temp, boolean isSummer) {
+
+        if ( (temp >= 60 && temp <= 90 && isSummer == false) || ( temp >= 60 && temp <= 100 && isSummer == true) ) return true;
+
+        return false;
+
+    }
+
+
+
+
+
 
 
 }
