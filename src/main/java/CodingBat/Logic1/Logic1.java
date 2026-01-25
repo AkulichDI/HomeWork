@@ -86,5 +86,24 @@ public class Logic1 {
         return 2;
     }
 
+/*
+    Даны два целых числа, a и b.
+    Верните их сумму.
+    Однако суммы в диапазоне от 10 до 19 включительно запрещены, поэтому в этом случае просто верните 20.
+
+
+    sortaSum(3, 4) → 7
+    sortaSum(9, 4) → 20
+    sortaSum(10, 11) → 21
+*/
+
+    public int sortaSum(int a, int b) {
+
+        if ( a + b  >= 10 && a + b <= 19 )return 20;
+
+        return a + b;
+
+    }
+
 
 }
