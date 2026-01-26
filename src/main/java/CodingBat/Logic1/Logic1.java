@@ -259,7 +259,22 @@ public class Logic1 {
         if ( a + b >= 13 && a + b <= 19 ) return a + b;
         return a + b;
 
+    }
 
+/*
+    У вас звонит мобильный. Верните true, если вам следует ответить.
+    Обычно вы отвечаете, но по утрам отвечаете только в том случае, если звонит ваша мама.
+    Во всех случаях, если вы спите, вы не отвечаете.
+
+    answerCell(false, false, false) → true
+    answerCell(false, false, true) → false
+    answerCell(true, false, false) → false
+ */
+
+    public boolean answerCell(boolean isMorning, boolean isMom, boolean isAsleep) {
+        if (isAsleep) return false;
+        if (isMorning) return isMom;
+        return true;
 
     }
 
