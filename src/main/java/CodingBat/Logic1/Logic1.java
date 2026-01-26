@@ -211,11 +211,22 @@ public class Logic1 {
 
     public boolean old35(int n) {
 
-
         if ( n > 0  && ( n % 3 == 0 || n % 5 == 0  ) && ((n % 3 == 0) ^ (n % 5 == 0)) )return true;
         return false;
+    }
 
+/*
+    Возвращает true, если заданное неотрицательное число на 1 или 2 меньше кратного 20.
+    Например, 38 и 39 возвращают true, а 40 — false.
 
+    less20(18) → true
+    less20(19) → true
+    less20(20) → false
+*/
+    public boolean less20(int n) {
+
+        if ( n > 0 && ( (n + 1 ) % 20 == 0 || ( n + 2 ) % 20 == 0 ) ) return true;
+        return false;
 
 
 
