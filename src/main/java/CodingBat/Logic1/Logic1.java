@@ -126,11 +126,21 @@ public class Logic1 {
         if ( vacation == true ) return "10:00";
         return "7:00";
 
-
-
-
     }
 
+/*
+    Число 6 — поистине великое число.
+    Для двух целых чисел a и b верните true, если одно из них равно 6. Или если их сумма или разность равна 6.
+    Примечание: функция Math.abs(num) вычисляет абсолютное значение числа.
+    love6(6, 4) → true
+    love6(4, 5) → false
+    love6(1, 5) → true
+*/
 
+    public boolean love6(int a, int b) {
+
+        return a == 6 || b == 6 || a + b == 6 || Math.abs(a - b) == 6;
+
+    }
 
 }
