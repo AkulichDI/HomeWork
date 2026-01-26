@@ -162,4 +162,25 @@ public class Logic1 {
         }
     }
 
+/*
+    Число называется особым, если оно кратно 11 или если оно на единицу больше числа, кратного 11.
+    Верните true, если заданное неотрицательное число является особым.
+    Используйте оператор % «остаток от деления» — см.
+    Введение в модуль
+
+    specialEleven(22) → true
+    specialEleven(23) → true
+    specialEleven(24) → false
+ */
+
+
+
+    public boolean specialEleven(int n) {
+
+        if ( n % 11 == 0 || (n - 1) % 11 == 0  ) return true;
+
+        return false;
+
+    }
+
 }
