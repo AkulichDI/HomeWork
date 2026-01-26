@@ -143,4 +143,23 @@ public class Logic1 {
 
     }
 
+
+/*
+    Для заданного числа n верните true, если n находится в диапазоне от 1 до 10 включительно.
+    Если только outsideMode не равен true, в этом случае верните true, если число меньше или равно 1 или больше или равно 10.
+
+    in1To10(5, false) → true
+    in1To10(11, false) → false
+    in1To10(11, true) → true
+ */
+
+    public boolean in1To10(int n, boolean outsideMode) {
+
+        if (!outsideMode) {
+            return n >= 1 && n <= 10;
+        } else {
+            return n <= 1 || n >= 10;
+        }
+    }
+
 }
