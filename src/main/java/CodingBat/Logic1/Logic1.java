@@ -228,8 +228,23 @@ public class Logic1 {
         if ( n > 0 && ( (n + 1 ) % 20 == 0 || ( n + 2 ) % 20 == 0 ) ) return true;
         return false;
 
+    }
+
+/*
+    Для заданного неотрицательного числа "num" верните true, если num находится в пределах 2 от числа, кратного 10.
+    Примечание: (a % b) — это остаток от деления a на b, поэтому (7 % 5) равно 2. См. также: Введение в Mod
+
+    nearTen(12) → true
+    nearTen(17) → false
+    nearTen(19) → true
+ */
+
+    public boolean nearTen(int num) {
+
+        if ( num > 0 && ( ( num - 2 ) % 10 == 0 || ( num + 2 ) % 10 == 0 ) || ( num - 1 ) % 10 == 0 || ( num + 1 ) % 10 == 0 || num % 10 == 0 )return true;
+        return false;
+
 
 
     }
-
 }
