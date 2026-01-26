@@ -1,27 +1,21 @@
 /*! UTF8 */
+// Naumen SD 4.17.5 - Таблица serviceCall за Q4 2025 (17:30-02:00)
+def FQN = 'serviceCall'
+def DATE_ATTR = 'creationDate'
+def NUM_ATTR = 'number'
+def TITLE_ATTR = 'title'
+def STATE_ATTR = 'state'
 
-// ------------------ НАСТРОЙКИ ------------------
-def FQN = 'serviceCall'        // метакласс "Запрос/Заявка" (замените на ваш)
-def DATE_ATTR = 'creationDate' // дата создания (замените на ваш)
-def NUM_ATTR  = 'number'       // номер (замените на ваш)
-def TITLE_ATTR = 'title'       // тема/название (замените на ваш)
-def STATE_ATTR = 'state'       // статус (замените на ваш)
+def fromDate = Date.parse('dd.MM.yyyy HH:mm', '01.10.2025 00:00')
+def toDate = Date.parse('dd.MM.yyyy HH:mm', '01.01.2026 00:00')
 
-// Q4 2025: [2025-10-01 00:00, 2026-01-01 00:00)
-def DATE_FORMAT = 'dd.MM.yyyy HH:mm'
-Date fromDate = Date.parse(DATE_FORMAT, '01.10.2025 00:00')
-Date toDate   = Date.parse(DATE_FORMAT, '01.01.2026 00:00') // exclusive
-
-// Окно времени 17:30..02:00 (через полночь)
 def tStartH = 17; def tStartM = 30
-def tEndH   = 2;  def tEndM   = 0
+def tEndH = 2; def tEndM = 0
 
-// Ограничения для безопасности
-def MAX_SCAN = 200000          // максимум строк из запроса (защитный лимит)
-def MAX_PRINT = 5000           // максимум строк печатаем таблицей
-def MAX_CELL = 120             // максимум символов в ячейке (защитный тримминг)
+def MAX_SCAN = 200000
+def MAX_PRINT = 5000
+def MAX_CELL = 120
 
-// ------------------ ВСПОМОГАТЕЛЬНОЕ ------------------
 def runId = UUID.randomUUID().toString()
 def pfx = "NAUMEN_AUDIT|runId=${runId}|"
 
@@ -30,41 +24,33 @@ def inWindow = { Date d ->
     c.setTime(d)
     int h = c.get(Calendar.HOUR_OF_DAY)
     int m = c.get(Calendar.MINUTE)
-
     boolean geStart = (h > tStartH) || (h == tStartH && m >= tStartM)
-    boolean ltEnd   = (h < tEndH)   || (h == tEndH   && m <  tEndM)
+    boolean ltEnd = (h < tEndH) || (h == tEndH && m < tEndM)
     return geStart || ltEnd
 }
 
-// нормализация значения для ячейки таблицы
 def cell = { v ->
     if (v == null) return ''
-    def s
-    if (v instanceof Date) s = v.format('yyyy-MM-dd HH:mm:ss')
-    else s = v.toString()
-    // убрать переводы строк/табуляции, чтобы таблицу не “ломало”
-    s = s.replaceAll(/[\\r\\n\\t]+/, ' ').trim()
+    def s = v instanceof Date ? v.format('yyyy-MM-dd HH:mm:ss') : v.toString()
+    s = s.replaceAll(/[\\r\
+\\t]+/, ' ').trim()
     if (s.length() > MAX_CELL) s = s.substring(0, MAX_CELL - 1) + '…'
     return s
 }
 
-// печать ASCII-таблицы в лог (одной “пачкой” по строкам)
 def printTable = { List<String> headers, List<List<String>> rows ->
-    // ширины колонок
     def widths = headers.collect { it.length() }
     rows.each { r ->
         r.eachWithIndex { val, i ->
             widths[i] = Math.max(widths[i], (val ?: '').length())
         }
     }
-
     def sep = '+' + widths.collect { '-' * (it + 2) }.join('+') + '+'
     def fmtRow = { List<String> r ->
         '|' + r.collectWithIndex { v, i ->
             ' ' + (v ?: '').padRight(widths[i]) + ' '
         }.join('|') + '|'
     }
-
     log.info("${pfx}${sep}")
     log.info("${pfx}${fmtRow(headers)}")
     log.info("${pfx}${sep}")
@@ -72,70 +58,49 @@ def printTable = { List<String> headers, List<List<String>> rows ->
     log.info("${pfx}${sep}")
 }
 
-// ------------------ ЗАПРОС (Query / HQL) ------------------
-// Берём только нужные поля (быстрее и безопаснее, чем грузить весь объект).
 def hql = """
-select
-  sc.id,
-  sc.${NUM_ATTR},
-  sc.${DATE_ATTR},
-  sc.${TITLE_ATTR},
-  sc.${STATE_ATTR}
+select sc.id, sc.${NUM_ATTR}, sc.${DATE_ATTR}, sc.${TITLE_ATTR}, sc.${STATE_ATTR}
 from ${FQN} sc
-where sc.${DATE_ATTR} >= :fromDate
-  and sc.${DATE_ATTR} <  :toDate
+where sc.${DATE_ATTR} >= :fromDate and sc.${DATE_ATTR} < :toDate
 order by sc.${DATE_ATTR} asc
 """
 
-log.info("${pfx}event=START|fqn=${FQN}|from=${fromDate.format('yyyy-MM-dd HH:mm:ss')}|to=${toDate.format('yyyy-MM-dd HH:mm:ss')}|timeWindow=17:30-02:00|maxScan=${MAX_SCAN}|maxPrint=${MAX_PRINT}")
+log.info("${pfx}START|fqn=${FQN}|from=${fromDate.format('yyyy-MM-dd HH:mm:ss')}|to=${toDate.format('yyyy-MM-dd HH:mm:ss')}")
 
 def q = api.db.query(hql)
 q.set([fromDate: fromDate, toDate: toDate])
+def raw = q.list() ?: []
 
-def raw = q.list()
-if (raw == null) raw = []
-
-// защитный лимит на скан (если Q4 очень большой)
 if (raw.size() > MAX_SCAN) {
-    log.warn("${pfx}event=WARN|msg=Too many rows in period|rows=${raw.size()}|limit=${MAX_SCAN}|action=truncate_scan")
+    log.warn("${pfx}WARN|rows=${raw.size()}|limit=${MAX_SCAN}")
     raw = raw.take(MAX_SCAN)
 }
 
-int scanned = 0
-int matched = 0
-
-def headers = ['ID', 'NUMBER', 'CREATED_AT', 'TITLE', 'STATE']
+int scanned = 0, matched = 0
+def headers = ['ID', 'NUMBER', 'CREATED', 'TITLE', 'STATE']
 def tableRows = []
 
 raw.each { row ->
     scanned++
-
-    // ожидаем Object[] или List
-    def r = (row instanceof Object[]) ? row.toList() : (row instanceof List ? row : [row])
+    def r = (row instanceof Object[]) ? row.toList() : [row]
     if (r.size() < 5) return
-
-    def idVal = r[0]
-    def numVal = r[1]
+    
     def createdVal = r[2]
-    def titleVal = r[3]
-    def stateVal = r[4]
-
-    if (!(createdVal instanceof Date)) return
-    if (!inWindow(createdVal)) return
-
+    if (!(createdVal instanceof Date) || !inWindow(createdVal)) return
+    
     matched++
     if (tableRows.size() < MAX_PRINT) {
-        tableRows << [cell(idVal), cell(numVal), cell(createdVal), cell(titleVal), cell(stateVal)]
+        tableRows << [cell(r[0]), cell(r[1]), cell(createdVal), cell(r[3]), cell(r[4])]
     }
 }
 
-if (tableRows.isEmpty()) {
-    log.info("${pfx}event=NO_ROWS|scanned=${scanned}|matched=${matched}")
-} else {
+if (tableRows) {
     printTable(headers, tableRows)
     if (matched > tableRows.size()) {
-        log.warn("${pfx}event=TRUNCATED_PRINT|matched=${matched}|printed=${tableRows.size()}|limit=${MAX_PRINT}")
+        log.warn("${pfx}TRUNCATED|matched=${matched}|printed=${tableRows.size()}")
     }
+} else {
+    log.info("${pfx}NO_ROWS|scanned=${scanned}|matched=${matched}")
 }
 
-log.info("${pfx}event=DONE|scanned=${scanned}|matched=${matched}|printed=${tableRows.size()}")
+log.info("${pfx}DONE|scanned=${scanned}|matched=${matched}|printed=${tableRows.size()}")
