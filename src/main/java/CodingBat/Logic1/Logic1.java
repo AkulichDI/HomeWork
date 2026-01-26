@@ -298,4 +298,24 @@ public class Logic1 {
 
     }
 
+/*
+    Если строка str начинается с "f", верните "Fizz". Если строка заканчивается на "b", верните "Buzz".
+    Если выполняются оба условия "f" и "b", верните "FizzBuzz". Во всех остальных случаях верните строку без изменений. (См. также: Код FizzBuzz)
+
+    fizzString("fig") → "Fizz"
+    fizzString("dib") → "Buzz"
+    fizzString("fib") → "FizzBuzz"
+*/
+
+    public String fizzString(String str) {
+
+        if ( str.substring(0,1).equalsIgnoreCase("f") &&  str.substring(str.length()-1 ).equalsIgnoreCase("b")) return "FizzBuzz";
+        if ( str.substring(0,1).equalsIgnoreCase("f") )return "Fizz";
+        if ( str.substring(str.length()-1 ).equalsIgnoreCase("b")) return "Buzz";
+
+        return  str;
+
+    }
+
+
 }
