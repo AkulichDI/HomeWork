@@ -183,4 +183,21 @@ public class Logic1 {
 
     }
 
+/*
+    Верните true, если заданное неотрицательное число на 1 или 2 больше числа, кратного 20.
+    См. также: Введение в Mod
+
+    more20(20) → false
+    more20(21) → true
+    more20(22) → true
+ */
+
+    public boolean more20(int n) {
+
+        if ( n > 0 && (( ( n -1  ) % 20 == 0 ) || ( n - 2  ) % 20 == 0 ) )return true;
+        return false;
+
+    }
+
+
 }
