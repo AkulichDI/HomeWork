@@ -1,16 +1,19 @@
 SELECT
-  ID,
-  STATE,
-  STATESTARTTIME,
-  STARTTIME,
-  DEADLINETIME,
+    sc.id,
+    sc.state,
+    sc.statestarttime,
+    sc.deadlinetime,
 
-  TIMEALLOWANCETIMERD,
-  TIMEALLOWANCETIMERB,
-  TIMEALLOWANCETIMERS,
+    /* Флаг: таймер на паузе */
+    CASE WHEN sc.timeallowancetimers = 'p' THEN 1 ELSE 0 END AS is_paused,
 
-  SLATIMERD,
-  SLATIMERB,
-  SLATIMERS
-FROM NAUSD40.TBL_SERVICECALL
-WHERE ID = 223751730;
+    /* Эффективный дедлайн (как правило, то что показывает UI при паузе):
+       базовый deadlinetime + (текущее время - момент входа в ожидание) */
+    CASE
+      WHEN sc.timeallowancetimers = 'p'
+        THEN sc.deadlinetime + (SYSDATE - sc.statestarttime)
+      ELSE
+        sc.deadlinetime
+    END AS effective_deadline
+FROM nausd40.tbl_servicecall sc
+WHERE sc.id = 223751730;
