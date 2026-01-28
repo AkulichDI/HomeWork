@@ -1,43 +1,79 @@
+WITH sc AS (
+  SELECT
+    id,
+    state,
+    deadlinetime,
+    statestarttime,
+    timeallowancetimers
+  FROM nausd40.tbl_servicecall
+  WHERE id = {{id}}
+),
+p AS (
+  SELECT
+    sc.*,
+
+    /* "Сейчас" в Владивостоке (UTC+10) */
+    (SYSTIMESTAMP AT TIME ZONE '+10:00') AS now_vl_ts,
+
+    /* STATSTARTTIME (DATE) -> TIMESTAMP WITH TZ (считаем что хранится как локальное +10) */
+    FROM_TZ(CAST(sc.statestarttime AS TIMESTAMP), '+10:00') AS wait_start_ts
+  FROM sc
+),
+days AS (
+  /* Генерируем только дни между началом ожидания и сейчас — это обычно десятки строк, не миллионы */
+  SELECT
+    p.*,
+    (TRUNC(CAST(p.wait_start_ts AS DATE)) + (LEVEL - 1)) AS d
+  FROM p
+  CONNECT BY LEVEL <= (TRUNC(CAST(p.now_vl_ts AS DATE)) - TRUNC(CAST(p.wait_start_ts AS DATE)) + 1)
+),
+work AS (
+  SELECT
+    id, state, deadlinetime, statestarttime, timeallowancetimers, now_vl_ts, wait_start_ts,
+
+    /* рабочее окно дня: 08:30–17:30 */
+    (d + (8.5/24))  AS work_start_d,
+    (d + (17.5/24)) AS work_end_d,
+
+    /* будни: 0..4 = Пн..Пт (1900-01-01 — понедельник) */
+    CASE
+      WHEN MOD(TRUNC(d) - DATE '1900-01-01', 7) BETWEEN 0 AND 4 THEN 1 ELSE 0
+    END AS is_weekday
+  FROM days
+),
+overlap AS (
+  SELECT
+    id, state, deadlinetime, statestarttime, timeallowancetimers, now_vl_ts, wait_start_ts,
+
+    /* пересечение [wait_start; now] с [work_start; work_end] */
+    CASE
+      WHEN is_weekday = 0 THEN 0
+      ELSE GREATEST(
+             0,
+             (LEAST(CAST(now_vl_ts AS DATE),  work_end_d) -
+              GREATEST(CAST(wait_start_ts AS DATE), work_start_d)
+             ) * 86400
+           )
+    END AS work_seconds_piece
+  FROM work
+)
 SELECT
-    sc.id,
-    sc.state,
-    sc.deadlinetime,
-    sc.statestarttime,
-    sc.slatimer_ai,
+  id,
+  state,
+  statestarttime,
+  deadlinetime,
+  timeallowancetimers,
 
-    /* Сумма пауз в секундах (из SLATIMER_AI) */
-    (
-      SELECT NVL(SUM( (end_ms - start_ms) / 1000 ), 0)
-      FROM (
-        SELECT
-          TO_NUMBER(REGEXP_SUBSTR(part, '^\d+')) AS start_ms,
-          TO_NUMBER(REGEXP_SUBSTR(part, '\d+$')) AS end_ms
-        FROM (
-          SELECT REGEXP_SUBSTR(sc.slatimer_ai, '\d+-\d+', 1, LEVEL) AS part
-          FROM dual
-          CONNECT BY REGEXP_SUBSTR(sc.slatimer_ai, '\d+-\d+', 1, LEVEL) IS NOT NULL
-        )
-      )
-    ) AS paused_seconds,
+  /* сколько "рабочих секунд" прошло в ожидании */
+  SUM(work_seconds_piece) AS wait_work_seconds,
 
-    /* Эффективный дедлайн = базовый дедлайн + суммарная пауза */
-    sc.deadlinetime
-      + NUMTODSINTERVAL(
-          (
-            SELECT NVL(SUM( (end_ms - start_ms) / 1000 ), 0)
-            FROM (
-              SELECT
-                TO_NUMBER(REGEXP_SUBSTR(part, '^\d+')) AS start_ms,
-                TO_NUMBER(REGEXP_SUBSTR(part, '\d+$')) AS end_ms
-              FROM (
-                SELECT REGEXP_SUBSTR(sc.slatimer_ai, '\d+-\d+', 1, LEVEL) AS part
-                FROM dual
-                CONNECT BY REGEXP_SUBSTR(sc.slatimer_ai, '\d+-\d+', 1, LEVEL) IS NOT NULL
-              )
-            )
-          ),
-          'SECOND'
-        ) AS effective_deadline_by_ai
-
-FROM nausd40.tbl_servicecall sc
-WHERE sc.id = 223751730;
+  /* эффективный дедлайн: базовый + рабочее время ожидания */
+  CASE
+    WHEN timeallowancetimers = 'p'
+      THEN CAST(deadlinetime AS TIMESTAMP)
+           + NUMTODSINTERVAL(SUM(work_seconds_piece), 'SECOND')
+    ELSE
+      CAST(deadlinetime AS TIMESTAMP)
+  END AS effective_deadline_vl
+FROM overlap
+GROUP BY id, state, statestarttime, deadlinetime, timeallowancetimers;
