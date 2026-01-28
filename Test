@@ -1,26 +1,137 @@
+WITH sc AS (
+  SELECT
+    id,
+    state,
+    statestarttime,
+    deadlinetime,
+    deadline,
+    timeallowancetimers,
+    timeallowancetimerb,
+    timeallowancetimerd,
+    slatimer_l,
+    slatimer_ai
+  FROM nausd40.tbl_servicecall
+  WHERE id = {{id}}
+),
+clock AS (
+  SELECT
+    sc.*,
+    (SYSTIMESTAMP AT TIME ZONE '+10:00') AS now_vl_ts,
+    CAST((SYSTIMESTAMP AT TIME ZONE '+10:00') AS DATE) AS now_vl_dt
+  FROM sc
+),
+ai_meta AS (
+  SELECT
+    c.*,
+    /* Сколько пар start-end в строке; жёстко ограничим, чтобы не поймать ORA-30009 */
+    LEAST(NVL(REGEXP_COUNT(c.slatimer_ai, '\d+-\d+'), 0), 2000) AS ai_n
+  FROM clock c
+),
+ai_parts AS (
+  SELECT
+    id,
+    TO_NUMBER(REGEXP_SUBSTR(slatimer_ai, '(\d+)-(\d+)', 1, LEVEL, NULL, 1)) AS start_ms,
+    TO_NUMBER(REGEXP_SUBSTR(slatimer_ai, '(\d+)-(\d+)', 1, LEVEL, NULL, 2)) AS end_ms
+  FROM ai_meta
+  CONNECT BY LEVEL <= ai_n
+),
+elapsed AS (
+  SELECT id, NVL(SUM(end_ms - start_ms), 0) AS elapsed_ms
+  FROM ai_parts
+  GROUP BY id
+),
+rem AS (
+  SELECT
+    a.*,
+    NVL(e.elapsed_ms, 0) AS elapsed_ms,
+
+    /* Остаток в миллисекундах */
+    CASE
+      /* если таймер активен и D/B заполнены (epoch ms) */
+      WHEN a.timeallowancetimerd IS NOT NULL
+       AND a.timeallowancetimerb IS NOT NULL
+       AND a.timeallowancetimerb > 0
+        THEN GREATEST(a.timeallowancetimerd - a.timeallowancetimerb, 0)
+
+      /* иначе (как в ожидании): остаток = SLATIMER_L - elapsed.
+         Предполагаем, что SLATIMER_L в секундах (по твоим значениям это правдоподобно). */
+      ELSE
+        GREATEST(a.slatimer_l * 1000 - NVL(e.elapsed_ms, 0), 0)
+    END AS remaining_ms
+  FROM ai_meta a
+  LEFT JOIN elapsed e ON e.id = a.id
+),
+start_point AS (
+  SELECT
+    r.*,
+    TRUNC(r.now_vl_dt) AS d0,
+    (TRUNC(r.now_vl_dt) + 8.5/24)  AS ws0,
+    (TRUNC(r.now_vl_dt) + 17.5/24) AS we0,
+    MOD(TRUNC(r.now_vl_dt) - DATE '1900-01-01', 7) AS dow0,
+
+    /* t0 = "старт отсчёта" внутри рабочего окна */
+    CASE
+      /* Будни */
+      WHEN MOD(TRUNC(r.now_vl_dt) - DATE '1900-01-01', 7) BETWEEN 0 AND 4 THEN
+        CASE
+          WHEN r.now_vl_dt < (TRUNC(r.now_vl_dt) + 8.5/24)  THEN (TRUNC(r.now_vl_dt) + 8.5/24)
+          WHEN r.now_vl_dt > (TRUNC(r.now_vl_dt) + 17.5/24) THEN
+            /* следующий рабочий день 08:30 */
+            (CASE
+              WHEN MOD((TRUNC(r.now_vl_dt)+1) - DATE '1900-01-01',7) BETWEEN 0 AND 4 THEN (TRUNC(r.now_vl_dt)+1)
+              WHEN MOD((TRUNC(r.now_vl_dt)+1) - DATE '1900-01-01',7) = 5 THEN (TRUNC(r.now_vl_dt)+3)
+              ELSE (TRUNC(r.now_vl_dt)+2)
+             END) + 8.5/24
+          ELSE r.now_vl_dt
+        END
+      /* Сб/Вс -> ближайший Пн 08:30 */
+      ELSE
+        (CASE WHEN MOD(TRUNC(r.now_vl_dt) - DATE '1900-01-01', 7) = 5 THEN TRUNC(r.now_vl_dt)+2 ELSE TRUNC(r.now_vl_dt)+1 END) + 8.5/24
+    END AS t0
+  FROM rem r
+),
+days AS (
+  /* генерируем немного дней вперёд (остаток/9ч + запас на выходные) */
+  SELECT
+    s.*,
+    (TRUNC(s.t0) + (LEVEL-1)) AS d
+  FROM start_point s
+  CONNECT BY LEVEL <= CEIL((s.remaining_ms/1000)/32400) + 14
+),
+calc AS (
+  SELECT
+    id, state, timeallowancetimers, remaining_ms, now_vl_ts, t0, d,
+    MOD(TRUNC(d) - DATE '1900-01-01', 7) AS dow,
+    (d + 8.5/24)  AS ws,
+    (d + 17.5/24) AS we,
+    CASE
+      WHEN MOD(TRUNC(d) - DATE '1900-01-01', 7) BETWEEN 0 AND 4 THEN
+        CASE WHEN TRUNC(d) = TRUNC(t0) THEN GREATEST((we - t0)*86400,0) ELSE 32400 END
+      ELSE 0
+    END AS avail_sec
+  FROM days
+),
+cum AS (
+  SELECT
+    c.*,
+    SUM(avail_sec) OVER (PARTITION BY id ORDER BY d) AS cum_sec
+  FROM calc c
+),
+pick AS (
+  SELECT
+    c.*,
+    ROW_NUMBER() OVER (PARTITION BY id ORDER BY d) AS rn
+  FROM cum c
+  WHERE c.cum_sec >= (c.remaining_ms/1000)
+)
 SELECT
-  sc.id,
-  sc.state,
-  sc.statestarttime,
-  sc.deadlinetime,
-  sc.deadline,
-  sc.timeallowancetimers,
-  sc.timeallowancetimerb,
-  sc.timeallowancetimerd,
-
-  /* Дедлайн из timerD (epoch ms -> Владивосток +10) */
-  CASE
-    WHEN sc.timeallowancetimerd IS NOT NULL AND sc.timeallowancetimerd > 0
-    THEN (
-      TO_TIMESTAMP_TZ('1970-01-01 00:00:00 UTC', 'YYYY-MM-DD HH24:MI:SS TZR')
-      + NUMTODSINTERVAL(sc.timeallowancetimerd/1000, 'SECOND')
-    ) AT TIME ZONE '+10:00'
-  END AS timer_deadline_vl,
-
-  /* Остаток по таймеру (в секундах), если есть B и D */
-  CASE
-    WHEN sc.timeallowancetimerd IS NOT NULL AND sc.timeallowancetimerb IS NOT NULL AND sc.timeallowancetimerb > 0
-    THEN (sc.timeallowancetimerd - sc.timeallowancetimerb) / 1000
-  END AS remaining_sec
-FROM nausd40.tbl_servicecall sc
-WHERE sc.id = {{id}};
+  id,
+  state,
+  timeallowancetimers,
+  remaining_ms,
+  /* дедлайн “как UI”: прибавляем остаток в рабочих часах */
+  ((CASE WHEN TRUNC(d) = TRUNC(t0) THEN t0 ELSE ws END)
+    + ((remaining_ms/1000) - (cum_sec - avail_sec)) / 86400
+  ) AS ui_like_deadline_vl
+FROM pick
+WHERE rn = 1;
