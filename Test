@@ -1,0 +1,66 @@
+SELECT
+  sc.CASE_ID,
+  sc.STATE,
+  sc.STANDBYDATE,
+  sc.DEADLINETIME,
+  
+  -- Активный таймер (первый непустой)
+  RemainingSeconds = COALESCE(
+    sc.TIMEALLOWANCETIMERB,
+    sc.TIMEALLOWANCETIMERL,
+    sc.TIMEALLOWANCETIMERS,
+    sc.TIMEALLOWANCETIMERD,
+    0
+  ),
+  
+  -- Дедлайн = Текущее время + остаток (в секундах) [file:5][file:6]
+  ДедлайнUI = DATEADD(SECOND,
+    COALESCE(
+      sc.TIMEALLOWANCETIMERB,
+      sc.TIMEALLOWANCETIMERL,
+      sc.TIMEALLOWANCETIMERS,
+      sc.TIMEALLOWANCETIMERD,
+      0
+    ),
+    GETDATE()
+  ),
+  
+  -- Отображение как hh:mm:ss
+  ОстатокHHMMSS = CONVERT(VARCHAR(8), DATEADD(SECOND,
+    COALESCE(
+      sc.TIMEALLOWANCETIMERB,
+      sc.TIMEALLOWANCETIMERL,
+      sc.TIMEALLOWANCETIMERS,
+      sc.TIMEALLOWANCETIMERD,
+      0
+    ),
+    '19000101'
+  ), 108),
+  
+  -- Статус нарушения
+  Нарушение = CASE 
+    WHEN COALESCE(
+      sc.TIMEALLOWANCETIMERB,
+      sc.TIMEALLOWANCETIMERL,
+      sc.TIMEALLOWANCETIMERS,
+      sc.TIMEALLOWANCETIMERD,
+      0
+    ) <= 0 THEN 'ДА'
+    ELSE 'НЕТ'
+  END
+
+FROM NAUSD40.TBL_SERVICECALL sc
+
+WHERE 
+  -- Только заявки на ожидании
+  sc.STANDBYDATE IS NOT NULL
+  AND sc.DEADLINETIME IS NULL
+
+ORDER BY 
+  COALESCE(
+    sc.TIMEALLOWANCETIMERB,
+    sc.TIMEALLOWANCETIMERL,
+    sc.TIMEALLOWANCETIMERS,
+    sc.TIMEALLOWANCETIMERD,
+    0
+  ) ASC;
