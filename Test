@@ -1,13 +1,8 @@
-SELECT
-  id,
-  state,
-  timeallowancetimers,
-  timeallowancetimerb,
-  timeallowancetimerd,
-  /* добавляй сюда кандидатов из своей таблицы */
-  timeallowance_a1,
-  timeallowance_l,
-  timeallowance_b,
-  timeallowance_d
-FROM nausd40.tbl_servicecall
-WHERE id = {{id}};
+SELECT owner, table_name, column_name, data_type
+FROM all_tab_columns
+WHERE UPPER(column_name) LIKE '%ALLOWANCE%'
+   OR UPPER(column_name) LIKE '%BACKTIMER%'
+   OR UPPER(column_name) LIKE '%TIMEALLOW%'
+   OR UPPER(column_name) LIKE '%SLATIMER%'
+   OR UPPER(column_name) LIKE '%TIMER%'
+ORDER BY owner, table_name, column_name;
