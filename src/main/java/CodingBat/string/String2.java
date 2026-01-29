@@ -17,8 +17,22 @@ public class String2 {
         return result.toString();
 
     }
+/*
+    Верните количество вхождений строки «hi» в заданную строку.
 
+    countHi("abc hi ho") → 1
+    countHi("ABChi hi") → 2
+    countHi("hihi") → 2
+ */
+    public int countHi(String str) {
 
+        int count = 0;
+        for (int i = 0; i < str.length() - 1; i++) {
+            if (str.startsWith("hi", i)) count++;
+        }
+        return count;
+
+    }
 
 
 }
