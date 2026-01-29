@@ -106,5 +106,22 @@ public class String2 {
         return false;
 
     }
+/*
+    Верните true, если заданная строка содержит подстроку «bob», но при этом средний символ «o» может быть любым.
+
+    bobThere("abcbob") → true
+    bobThere("b9b") → true
+    bobThere("bac") → false
+*/
+
+    public boolean bobThere(String str) {
+
+        for (int i = 0; i < str.length() - 2; i++) {
+            if ( str.startsWith("b",i ) && str.startsWith("b", i + 2)  )return true;
+        }
+        return false;
+    }
+
+
 
 }
