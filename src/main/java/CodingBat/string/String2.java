@@ -87,4 +87,24 @@ public class String2 {
         return an.endsWith(bn) || bn.endsWith(an);
     }
 
+/*
+    Верните true, если в заданной строке есть вхождение "xyz", где перед xyz нет точки (.).
+    То есть "xxyz" подходит, а "x.xyz" — нет.
+
+    xyzThere("abcxyz") → true
+    xyzThere("abc.xyz") → false
+    xyzThere("xyz.abc") → true
+ */
+
+    public boolean xyzThere(String str) {
+
+        for (int i = 0; i < str.length() - 2; i++) {
+            if (str.startsWith("xyz", i)) {
+                if (i == 0 || str.charAt(i - 1) != '.') return true;
+            }
+        }
+        return false;
+
+    }
+
 }
