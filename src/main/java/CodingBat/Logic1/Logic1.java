@@ -547,5 +547,27 @@ public class Logic1 {
         return aTens == bTens || aTens == bOnes || aOnes == bTens || aOnes == bOnes;
     }
 
+/*
+    Даны два неотрицательных целых числа a и b. Верните их сумму, если в сумме столько же цифр, сколько в a.
+    Если в сумме больше цифр, чем в a, просто верните a без b.
+    (Примечание: один из способов вычислить количество цифр в неотрицательном целом числе n — преобразовать его в строку с помощью String.valueOf(n),
+    а затем проверить длину строки.)
+
+    sumLimit(2, 3) → 5
+    sumLimit(8, 3) → 8
+    sumLimit(8, 1) → 9
+*/
+
+
+    public int sumLimit(int a, int b) {
+
+        int sum = a + b;
+        if (String.valueOf(sum).length() == String.valueOf(a).length()) {
+            return sum;
+        }
+        return a;
+
+    }
+
 
 }
