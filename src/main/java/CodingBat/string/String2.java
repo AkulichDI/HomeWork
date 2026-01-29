@@ -76,8 +76,7 @@ public class String2 {
 
     endOther("Hiabc", "abc") → true
     endOther("AbC", "HiaBc") → true
-    endOther("abc", "abXabc") → true
- */
+    endOther("abc", "abXabc") → true*/
 
     public boolean endOther(String a, String b) {
 
@@ -121,7 +120,25 @@ public class String2 {
         }
         return false;
     }
+/*
+    Мы будем говорить, что строка сбалансирована по x и y, если для всех символов x в строке где-то в конце есть символ y.
+    Таким образом, «xxy» сбалансировано, а «xyx» — нет. Один символ y может сбалансировать несколько символов x.
+    Верните true, если заданная строка сбалансирована по x и y.
 
+    xyBalance("aaxbby") → true
+    xyBalance("aaxbb") → false
+    xyBalance("yaaxbb") → false
+*/
 
+    public boolean xyBalance(String str) {
 
+        boolean seenY = false;
+        for (int i = str.length() - 1; i >= 0; i--) {
+            char ch = str.charAt(i);
+            if (ch == 'y') seenY = true;
+            if (ch == 'x' && !seenY) return false;
+        }
+        return true;
+
+    }
 }
