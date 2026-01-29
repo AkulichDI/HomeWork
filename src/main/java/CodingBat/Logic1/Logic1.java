@@ -407,8 +407,23 @@ public class Logic1 {
 
     }
 
+/*
+    Даны три целых числа: a, b и c. Верните true, если одно из них на 10 или более меньше одного из двух других.
+
+    lessBy10(1, 7, 11) → true
+    lessBy10(1, 7, 10) → false
+    lessBy10(11, 1, 7) → true
+*/
+    public boolean lessBy10(int a, int b, int c) {
+
+        int ab = Math.abs(a - b);
+        int bc = Math.abs(b - c);
+        int ac = Math.abs(a - c);
+
+        return (ab >= 10 ) || (bc >= 10 ) || (ac >= 10 );
 
 
+    }
 
 
 }
