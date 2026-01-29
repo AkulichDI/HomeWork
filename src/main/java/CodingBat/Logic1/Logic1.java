@@ -343,4 +343,21 @@ public class Logic1 {
 
     }
 
+/*
+    Даны три целых числа: a, b и c.
+    Верните true, если из двух целых чисел можно получить третье, сложив их.
+
+    twoAsOne(1, 2, 3) → true
+    twoAsOne(3, 1, 2) → true
+    twoAsOne(3, 2, 2) → false
+ */
+
+    public boolean twoAsOne(int a, int b, int c) {
+
+        return a + b == c || a + c == b || c + b == a;
+
+
+    }
+
+
 }

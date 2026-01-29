@@ -1,8 +1,0 @@
-SELECT owner, table_name, column_name, data_type
-FROM all_tab_columns
-WHERE UPPER(column_name) LIKE '%ALLOWANCE%'
-   OR UPPER(column_name) LIKE '%BACKTIMER%'
-   OR UPPER(column_name) LIKE '%TIMEALLOW%'
-   OR UPPER(column_name) LIKE '%SLATIMER%'
-   OR UPPER(column_name) LIKE '%TIMER%'
-ORDER BY owner, table_name, column_name;
