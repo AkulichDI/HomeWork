@@ -141,4 +141,26 @@ public class String2 {
         return true;
 
     }
+
+/*
+    Даны две строки a и b. Создайте более длинную строку, состоящую из первого символа a, первого символа b, второго символа a, второго символа b и так далее.
+    Все оставшиеся символы добавляются в конец результата.
+
+    mixString("abc", "xyz") → "axbycz"
+    mixString("Hi", "There") → "HTihere"
+    mixString("xxxx", "There") → "xTxhxexre"
+*/
+
+    public String mixString(String a, String b) {
+
+        int max = Math.max(a.length(), b.length());
+        StringBuilder sb = new StringBuilder(a.length() + b.length());
+
+        for (int i = 0; i < max; i++) {
+            if (i < a.length()) sb.append(a.charAt(i));
+            if (i < b.length()) sb.append(b.charAt(i));
+        }
+        return sb.toString();
+
+    }
 }
