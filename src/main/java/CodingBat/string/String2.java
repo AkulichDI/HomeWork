@@ -69,4 +69,22 @@ public class String2 {
         return counter;
     }
 
+/**
+    Для двух строк верните значение true, если одна из строк встречается в самом конце другой строки,
+    без учёта разницы в регистре (другими словами, вычисления не должны зависеть от регистра).
+    Примечание: str.toLowerCase() возвращает строку в нижнем регистре.
+
+    endOther("Hiabc", "abc") → true
+    endOther("AbC", "HiaBc") → true
+    endOther("abc", "abXabc") → true
+ */
+
+    public boolean endOther(String a, String b) {
+
+        String an = a.toLowerCase();
+        String bn = b.toLowerCase();
+
+        return an.endsWith(bn) || bn.endsWith(an);
+    }
+
 }
