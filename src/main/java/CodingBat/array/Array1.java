@@ -1,7 +1,4 @@
-package CodingBat.array1;
-
-import java.util.Arrays;
-import java.util.Collections;
+package CodingBat.array;
 
 public class Array1 {
 

@@ -1,4 +1,4 @@
-package CodingBat.Logic1;
+package CodingBat.Logic;
 
 public class Logic1 {
 

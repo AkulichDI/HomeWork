@@ -1,6 +1,4 @@
-package CodingBat.string1;
-
-import java.util.Locale;
+package CodingBat.string;
 
 public class String1 {
 
