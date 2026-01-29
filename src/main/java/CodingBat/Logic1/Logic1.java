@@ -529,4 +529,23 @@ public class Logic1 {
 
     }
 
+/*
+        Для двух целых чисел, каждое из которых находится в диапазоне от 10 до 99, верните true, если в обоих числах есть общая цифра, например 2 в числах 12 и 23.
+        (Примечание: деление, например n/10, даёт левую цифру, а % «по модулю» n%10 даёт правую цифру.)
+
+        shareDigit(12, 23) → true
+        shareDigit(12, 43) → false
+        shareDigit(12, 44) → false
+ */
+
+    public boolean shareDigit(int a, int b) {
+        int aTens = a / 10;
+        int aOnes = a % 10;
+        int bTens = b / 10;
+        int bOnes = b % 10;
+
+        return aTens == bTens || aTens == bOnes || aOnes == bTens || aOnes == bOnes;
+    }
+
+
 }
