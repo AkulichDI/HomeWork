@@ -359,5 +359,23 @@ public class Logic1 {
 
     }
 
+    /*
+
+    Даны три целых числа: a, b и c. Верните true, если b больше a, а c больше b. Однако если "bOk" равно true, то b не обязательно должно быть больше a.
+
+
+    inOrder(1, 2, 4, false) → true
+    inOrder(1, 2, 1, false) → false
+    inOrder(1, 1, 2, true) → true
+     */
+
+    public boolean inOrder(int a, int b, int c, boolean bOk) {
+
+        return (c > b) && (bOk || b > a);
+
+
+    }
+
+
 
 }
