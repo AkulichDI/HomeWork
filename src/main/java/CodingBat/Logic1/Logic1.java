@@ -425,5 +425,24 @@ public class Logic1 {
 
     }
 
+/*
+    Верните сумму двух бросков шестигранного кубика, каждый из которых находится в диапазоне от 1 до 6.
+    Однако, если параметр noDoubles имеет значение true, то, если на двух кубиках выпало одинаковое значение, увеличьте значение одного кубика на единицу, если оно было равно 6.
+
+
+    withoutDoubles(2, 3, true) → 5
+    withoutDoubles(3, 3, true) → 7
+    withoutDoubles(3, 3, false) → 6
+ */
+
+    public int withoutDoubles(int die1, int die2, boolean noDoubles) {
+
+        if ( die1 == die2 && noDoubles && die1 == 6  ) return die1 + 1;
+        if ( die1 == die2 && noDoubles ) return die1 + die2 + 1;
+
+        return die1 + die2;
+
+    }
+
 
 }
