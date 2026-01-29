@@ -484,8 +484,22 @@ public class Logic1 {
         return 0;
     }
 
+/*
+    У вас есть зелёный лотерейный билет с номерами a, b и c.
+    Если все номера разные, результат будет равен 0. Если все номера одинаковые, результат будет равен 20.
+    Если два номера одинаковые, результат будет равен 10.
 
+    greenTicket(1, 2, 3) → 0
+    greenTicket(2, 2, 2) → 20
+    greenTicket(1, 1, 2) → 10
+ */
 
+    public int greenTicket(int a, int b, int c) {
 
+        if ( a == b && b == c && a == c ) return 20;
+
+        if ( a == b || b == c || a == c ) return 10;
+        return 0;
+    }
 
 }
