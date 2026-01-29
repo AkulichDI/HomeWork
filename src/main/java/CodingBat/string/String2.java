@@ -54,7 +54,19 @@ public class String2 {
         }
         return catCount == dogCount;
     }
+/*
+    Верните количество вхождений строки «code» в заданную строку, за исключением того, что вместо «d» может быть любая буква, поэтому «cope» и «cooe» тоже учитываются.
 
-
+    countCode("aaacodebbb") → 1
+    countCode("codexxcode") → 2
+    countCode("cozexxcope") → 2
+*/
+    public int countCode(String str) {
+        int counter = 0;
+        for (int i = 0; i < str.length()-2; i++) {
+            if ( str.startsWith("co",i) && str.startsWith("e", i + 3))counter++;
+        }
+        return counter;
+    }
 
 }
