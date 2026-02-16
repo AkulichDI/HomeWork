@@ -163,4 +163,25 @@ public class String2 {
         return sb.toString();
 
     }
+
+/*
+    Для заданной строки и целого числа n верните строку, состоящую из n повторений последних n символов исходной строки.
+    Можно предположить, что n находится в диапазоне от 0 до длины строки включительно.
+
+   repeatEnd("Hello", 3) → "llollollo"
+   repeatEnd("Hello", 2) → "lolo"
+   repeatEnd("Hello", 1) → "o"
+
+ */
+
+    public String repeatEnd(String str, int n) {
+
+        StringBuilder sb = new StringBuilder(n);
+
+        for (int i = 0; i < n; i++) {
+            sb.append(str.substring(str.length() - n));
+        }
+        return sb.toString();
+    }
+
 }
