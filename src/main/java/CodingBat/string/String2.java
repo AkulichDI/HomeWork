@@ -328,4 +328,33 @@ public class String2 {
         }
         return sb.toString();
     }
+
+/*
+        Найдите в строке такие шаблоны, как «zip» и «zap», — длиной 3 символа, начинающиеся с «z» и заканчивающиеся на «p».
+        Верните строку, в которой из всех таких слов удалена средняя буква, то есть из «zipXzap» получится «zpXzp».
+
+        zipZap("zipXzap") → "zpXzp"
+        zipZap("zopzop") → "zpzp"
+        zipZap("zzzopzop") → "zzzpzp"
+ */
+
+    public String zipZap(String str) {
+
+        StringBuilder sb = new StringBuilder(str.length());
+
+        int i = 0;
+        while (i < str.length()) {
+            if (i + 2 < str.length() && str.charAt(i) == 'z' && str.charAt(i + 2) == 'p') {
+
+                sb.append('z').append('p');
+                i += 3;
+            } else {
+                sb.append(str.charAt(i));
+                i += 1;
+            }
+        }
+
+        return sb.toString();
+    }
+
 }
