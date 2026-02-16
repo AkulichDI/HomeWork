@@ -357,4 +357,28 @@ public class String2 {
         return sb.toString();
     }
 
+/*
+        Верните версию заданной строки, в которой для каждой звездочки (*) в строке звездочка и символы слева и справа от нее удалены.
+        Таким образом, из строки "ab*cd" получится "ad", а из строки "ab**cd" — тоже "ad".
+
+        starOut("ab*cd") → "ad"
+        starOut("ab**cd") → "ad"
+        starOut("sm*eilly") → "silly"
+ */
+
+    public String starOut(String str) {
+        StringBuilder sb = new StringBuilder(str.length());
+
+        for (int i = 0; i < str.length() ; i++) {
+            boolean  leftStar = (i > 0 && str.charAt(i-1) == '*');
+            boolean  rightStar = (i < str.length()-1 && str.charAt(i+1) == '*');
+
+            if (str.charAt(i) != '*' && !leftStar && !rightStar) {
+                sb.append(str.charAt(i));
+            }
+        }
+        return sb.toString();
+    }
+
+
 }
