@@ -228,4 +228,30 @@ public class String2 {
         return sb.toString();
     }
 
+
+
+/*
+        Дана строка. Рассмотрим префикс, состоящий из первых N символов строки.
+        Встречается ли этот префикс в строке еще где-нибудь? Предположим, что строка не пустая и что N находится в диапазоне от 1 до str.length().
+
+        prefixAgain("abXYabc", 1) → true
+        prefixAgain("abXYabc", 2) → true
+        prefixAgain("abXYabc", 3) → false
+ */
+
+    public boolean prefixAgain(String str, int n) {
+
+        String tmp = str.substring(0, n);
+
+        for (int i = n; i < str.length(); i++ ) {
+
+            if ( str.startsWith(tmp, i) ) return true;
+
+        }
+        return false;
+    }
+
+
+
+
 }
