@@ -273,6 +273,22 @@ public class String2 {
         return false;
     }
 
+/*
+        Сэндвич — это два куска хлеба с чем-то между ними.
+        Верните строку, которая находится между первым и последним вхождением слова "хлеб" в заданной строке, или верните пустую строку "", если хлеба было не два куска.
 
+        getSandwich("breadjambread") → "jam"
+        getSandwich("xxbreadjambreadyy") → "jam"
+        getSandwich("xxbreadyy") → ""
+ */
+    public String getSandwich(String str) {
+
+        int first = str.indexOf("bread");
+        int last  = str.lastIndexOf("bread");
+
+        if (first == -1 || first == last) return "";
+        return str.substring(first + 5, last);
+
+    }
 
 }
