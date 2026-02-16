@@ -207,6 +207,25 @@ public class String2 {
         return sb.toString();
     }
 
+    /*
+        Для двух строк word и разделителя sep верните большую строку, состоящую из count вхождений слова, разделенных строкой-разделителем.
 
+        repeatSeparator("Word", "X", 3) → "WordXWordXWord"
+        repeatSeparator("This", "And", 2) → "ThisAndThis"
+        repeatSeparator("This", "And", 1) → "This"
+     */
+
+    public String repeatSeparator(String word, String sep, int count) {
+
+        StringBuilder sb = new StringBuilder(word.length() * count);
+
+        for (int i = 0; i < count; i++) {
+            sb.append(word);
+            if (i < count - 1) {
+                sb.append(sep);
+            }
+        }
+        return sb.toString();
+    }
 
 }
