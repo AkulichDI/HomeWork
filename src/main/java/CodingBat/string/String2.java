@@ -404,4 +404,27 @@ public class String2 {
         }
         return sb.toString();
     }
+
+/*
+        Для заданной строки и непустой строки word верните строку, состоящую из символов,
+        расположенных непосредственно перед и после каждого вхождения слова в строку.
+        Не учитывайте случаи, когда перед словом или после него нет символа, а также случаи, когда символ встречается дважды, если он находится между двумя словами.
+
+        wordEnds("abcXY123XYijk", "XY") → "c13i"
+        wordEnds("XY123XY", "XY") → "13"
+        wordEnds("XY1XY", "XY") → "11"
+*/
+
+    public String wordEnds(String str, String word) {
+        int w = word.length();
+        StringBuilder sb = new StringBuilder(str.length());
+        for (int i = 0; i + w <= str.length(); i++) {
+            if (str.regionMatches(i, word, 0, w)) {
+                if (i > 0) sb.append(str.charAt(i - 1));
+                if (i + w < str.length()) sb.append(str.charAt(i + w));
+            }
+        }
+        return sb.toString();
+    }
+
 }
