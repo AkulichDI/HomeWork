@@ -251,6 +251,27 @@ public class String2 {
         return false;
     }
 
+/*
+        Есть ли в строке слово "xyz"? Чтобы определить середину строки, мы будем считать, что количество символов слева и справа от "xyz" отличается не более чем на один.
+        Эта задача сложнее, чем кажется.
+
+        xyzMiddle("AAxyzBB") → true
+        xyzMiddle("AxyzBB") → true
+        xyzMiddle("AxyzBBB") → false
+ */
+
+    public boolean xyzMiddle(String str) {
+
+        int pos = str.indexOf("xyz");
+        while (pos != -1) {
+            int left = pos;
+            int right = str.length() - (pos + 3);
+            if (Math.abs(left - right) <= 1) return true;
+
+            pos = str.indexOf("xyz", pos + 1);
+        }
+        return false;
+    }
 
 
 
