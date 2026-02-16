@@ -71,6 +71,24 @@ public class Array2 {
         return (sum - min - max) / (nums.length - 2);
     }
 
+/*
+    Верните сумму чисел в массиве, а для пустого массива верните 0.
+    Число 13 считается несчастливым, поэтому оно не учитывается, как и числа, идущие сразу после 13.
 
-
+    sum13([1, 2, 2, 1]) → 6
+    sum13([1, 1]) → 2
+    sum13([1, 2, 2, 1, 13]) → 6
+ */
+    public int sum13(int[] nums) {
+        if (nums == null || nums.length == 0) return 0;
+        int sum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 13) {
+                i++;
+            } else {
+                sum += nums[i];
+            }
+        }
+        return sum;
+    }
 }
