@@ -310,4 +310,22 @@ public class String2 {
 
     }
 
+/*
+        Для заданной строки вычислите новую строку, переместив первый символ так, чтобы он стоял после следующих двух символов, то есть из строки "abc" получится "bca".
+        Повторите этот процесс для каждой последующей группы из трех символов, то есть из строки "abcdef" получится "bcaefd".
+        Не учитывайте группы из менее чем трех символов в конце.
+
+        oneTwo("abc") → "bca"
+        oneTwo("tca") → "cat"
+        oneTwo("tcagdo") → "catdog"
+ */
+
+    public String oneTwo(String str) {
+
+        StringBuilder sb = new StringBuilder(str.length());
+        for (int i = 0; i + 2 < str.length(); i += 3) {
+            sb.append(str, i + 1, i + 3).append(str.charAt(i));
+        }
+        return sb.toString();
+    }
 }
