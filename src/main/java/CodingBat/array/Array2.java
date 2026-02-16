@@ -1,5 +1,12 @@
 package CodingBat.array;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.OptionalInt;
+
+import static java.util.List.of;
+
 public class Array2 {
 
 /*
@@ -41,7 +48,28 @@ public class Array2 {
         return max - min;
     }
 
+/*
+    Верните «центрированное» среднее арифметическое массива целых чисел, которое, как мы будем называть,
+    представляет собой среднее арифметическое значений, за исключением самых больших и самых маленьких значений в массиве.
+    Если в массиве есть несколько одинаковых самых маленьких значений, игнорируйте только одно из них, и так же поступите с самыми большими значениями.
+    Для получения окончательного среднего арифметического используйте деление целых чисел. Можно предположить, что длина массива составляет 3 или более элементов.
 
+    centeredAverage([1, 2, 3, 4, 100]) → 3
+    centeredAverage([1, 1, 5, 5, 10, 8, 7]) → 5
+    centeredAverage([-10, -4, -2, -4, -2, 0]) → -3
+ */
+
+    public int centeredAverage(int[] nums) {
+        int min = nums[0], max = nums[0], sum = 0;
+
+        for (int x : nums) {
+            sum += x;
+            if (x < min) min = x;
+            if (x > max) max = x;
+        }
+
+        return (sum - min - max) / (nums.length - 2);
+    }
 
 
 
