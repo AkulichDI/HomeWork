@@ -380,5 +380,28 @@ public class String2 {
         return sb.toString();
     }
 
+/*
+        Для заданной строки и непустой строки word верните версию исходной строки, в которой все символы заменены на плюсики ("+"),
+        кроме вхождений строки word, которые остаются без изменений.
 
+        plusOut("12xy34", "xy") → "++xy++"
+        plusOut("12xy34", "1") → "1+++++"
+        plusOut("12xy34xyabcxy", "xy") → "++xy++xy+++xy"
+*/
+
+    public String plusOut(String str, String word) {
+        int w = word.length();
+        StringBuilder sb = new StringBuilder(str.length());
+
+        for (int i = 0; i < str.length(); ) {
+            if (i + w <= str.length() && str.regionMatches(i, word, 0, w)) {
+                sb.append(word);
+                i += w;
+            } else {
+                sb.append('+');
+                i++;
+            }
+        }
+        return sb.toString();
+    }
 }
