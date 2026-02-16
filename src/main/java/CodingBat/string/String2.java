@@ -184,4 +184,29 @@ public class String2 {
         return sb.toString();
     }
 
+
+/*
+    Учитывая строку и значение int n, верните строку, состоящую из первых n символов строки, за которыми следуют первые n-1 символы строки, и так далее.
+    Вы можете предположить, что n находится между 0 и длиной строки включительно (т.е. n >= 0 и n <= str.length()).
+
+    repeatFront("Chocolate", 4) → "ChocChoChC"
+    repeatFront("Chocolate", 3) → "ChoChC"
+    repeatFront("Ice Cream", 2) → "IcI"
+*/
+
+    public String repeatFront(String str, int n) {
+
+        StringBuilder sb = new StringBuilder(n);
+
+        for (int i = 0; i < n; i++) {
+
+            if (i < str.length()) sb.append(str.substring(0, n - i));
+
+
+        }
+        return sb.toString();
+    }
+
+
+
 }
