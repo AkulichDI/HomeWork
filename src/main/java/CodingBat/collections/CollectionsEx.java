@@ -1,6 +1,9 @@
 package CodingBat.collections;
 
 import java.util.*;
+
+import static java.util.Collections.sort;
+
 public class CollectionsEx {
 
 
@@ -150,8 +153,13 @@ public class CollectionsEx {
          * Можно НЕ менять исходный список, а сортировать копию.
          */
         public List<String> sortByLengthThenAlpha(List<String> words) {
-            // TODO
-            return new ArrayList<>();
+
+            Objects.requireNonNull(words, "words must not be null");
+
+            List<String> result = new ArrayList<>(words);
+
+            result.sort(Comparator.comparingInt(String::length).thenComparing(Comparator.naturalOrder()));
+            return result;
         }
 
         // -------------------------
