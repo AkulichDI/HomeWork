@@ -104,8 +104,12 @@ public class CollectionsEx {
          * isSortedNonDecreasing([3,2]) -> false
          */
         public boolean isSortedNonDecreasing(List<Integer> nums) {
-            // TODO
-            return false;
+
+            Objects.requireNonNull(nums, "nums must not be null");
+            for (int i = 1; i < nums.size(); i++) {
+                if (nums.get(i) < nums.get(i - 1)) return false;
+            }
+            return true;
         }
 
         /**
