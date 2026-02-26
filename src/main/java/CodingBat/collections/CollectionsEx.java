@@ -118,8 +118,12 @@ public class CollectionsEx {
          * uniqueKeepFirst([]) -> []
          */
         public List<Integer> uniqueKeepFirst(List<Integer> nums) {
-            // TODO
-            return new ArrayList<>();
+
+            Objects.requireNonNull(nums, "nums must not be null");
+
+            Set<Integer> result = new LinkedHashSet<>(nums);
+
+            return new ArrayList<>(result);
         }
 
         /**
