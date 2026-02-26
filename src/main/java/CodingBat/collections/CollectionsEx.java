@@ -132,8 +132,14 @@ public class CollectionsEx {
          * sumSkipRange([7,8], 1, 3) -> 15
          */
         public int sumSkipRange(List<Integer> nums, int lo, int hi) {
-            // TODO
-            return 0;
+
+            Objects.requireNonNull(nums, "nums must not be null");
+
+            return nums.stream()
+                    .filter(Objects::isNull)
+                    .filter(x -> x < lo || x > hi)
+                    .mapToInt(Integer::intValue)
+                    .sum();
         }
 
         /**
