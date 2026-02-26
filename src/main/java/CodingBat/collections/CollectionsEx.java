@@ -82,8 +82,20 @@ public class CollectionsEx {
          * insertAfter([], 1, 9) -> []
          */
         public List<Integer> insertAfter(List<Integer> nums, int target, int value) {
-            // TODO
-            return new ArrayList<>();
+
+            Objects.requireNonNull(nums, "nums must not be null");
+
+            List<Integer> result = new ArrayList<>(nums);
+
+            ListIterator<Integer> it = result.listIterator();
+
+            while (it.hasNext()) {
+                Integer x = it.next();
+                if (x != null && x == target) {
+                    it.add(value);
+                }
+            }
+            return result;
         }
 
         /**
