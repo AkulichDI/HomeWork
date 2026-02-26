@@ -40,8 +40,12 @@ public class CollectionsEx {
          * lastN(["x"], 5) -> ["x"]
          */
         public List<String> lastN(List<String> words, int n) {
-            // TODO
-            return new ArrayList<>();
+            if ( n > words.size() ) return words;
+                ArrayList<String> result = new ArrayList<>(n);
+                for (int i = words.size() - n; i < words.size(); i++) {
+                    result.add(words.get(i));
+                }
+                return result;
         }
 
         /**
