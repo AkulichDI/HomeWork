@@ -40,12 +40,27 @@ public class CollectionsEx {
          * lastN(["x"], 5) -> ["x"]
          */
         public List<String> lastN(List<String> words, int n) {
+           /* Как правильно
+            Objects.requireNonNull(words,"words is null");
+
+            if (n < 0){
+                 throw new IllegalArgumentException("n < 0");
+            }
+            int size = words.size();
+            int start = Math.max(0, size-n);
+            return words.subList(start, size);
+
+            */
+
+
             if ( n > words.size() ) return words;
-                ArrayList<String> result = new ArrayList<>(n);
-                for (int i = words.size() - n; i < words.size(); i++) {
+            ArrayList<String> result = new ArrayList<>(n);
+            for (int i = words.size() - n; i < words.size(); i++) {
                     result.add(words.get(i));
                 }
-                return result;
+            return result;
+
+
         }
 
         /**
