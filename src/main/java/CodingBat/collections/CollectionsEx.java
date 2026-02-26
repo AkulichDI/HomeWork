@@ -172,8 +172,12 @@ public class CollectionsEx {
          * isSubset({x}, {}) -> false
          */
         public boolean isSubset(Set<String> a, Set<String> b) {
-            // TODO
-            return false;
+            Objects.requireNonNull(a, "a must not be null");
+            Objects.requireNonNull(b, "b must not be null");
+            for (String el : a){
+                if (!b.contains(el))return false ;
+            }
+            return true;
         }
 
         /**
