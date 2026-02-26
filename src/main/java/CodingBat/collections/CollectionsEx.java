@@ -40,7 +40,7 @@ public class CollectionsEx {
          * lastN(["x"], 5) -> ["x"]
          */
         public List<String> lastN(List<String> words, int n) {
-           /* Как правильно
+           /* как правильно
             Objects.requireNonNull(words,"words is null");
 
             if (n < 0){
@@ -69,8 +69,11 @@ public class CollectionsEx {
          * withoutFirstLast([1,2]) -> []
          */
         public List<Integer> withoutFirstLast(List<Integer> nums) {
-            // TODO
-            return new ArrayList<>();
+            Objects.requireNonNull(nums, "nums must not be null");
+
+            if (nums.size() < 3) return new ArrayList<>();
+
+            return new ArrayList<>(nums.subList(1, nums.size() - 1));
         }
 
         /**
