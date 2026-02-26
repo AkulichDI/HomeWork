@@ -186,8 +186,18 @@ public class CollectionsEx {
          * duplicatesSet([5]) -> {}
          */
         public Set<Integer> duplicatesSet(List<Integer> nums) {
-            // TODO
-            return new HashSet<>();
+
+            Objects.requireNonNull(nums, "nums must not be null");
+            Set<Integer> tmp = new HashSet<>();
+            Set<Integer> result = new HashSet<>();
+
+            for ( Integer el : nums ){
+                if ( !tmp.add(el)){
+                    result.add(el);
+                }
+            }
+
+            return result;
         }
 
         /**
