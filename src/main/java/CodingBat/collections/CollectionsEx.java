@@ -343,8 +343,24 @@ public class CollectionsEx {
          * joinWhenHitsK(["x","x","x"], 3) -> "x"
          */
         public String joinWhenHitsK(List<String> words, int k) {
-            // TODO
-            return "";
+
+            Objects.requireNonNull(words,"words must not be null");
+
+            Map<String , Integer> data = new HashMap<>();
+
+            StringBuilder result = new StringBuilder();
+
+            for ( String el : words) {
+
+                data.merge(el, 1 , Integer::sum);
+
+            }
+            for ( Map.Entry<String,Integer> e : data.entrySet() ){
+                if (e.getValue() == k){
+                    result.append(e.getKey());
+                }
+            }
+            return result.toString();
         }
 
         /**
