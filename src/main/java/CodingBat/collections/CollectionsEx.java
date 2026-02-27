@@ -206,9 +206,27 @@ public class CollectionsEx {
          * uniqueCountIgnoreCase([]) -> 0
          */
         public int uniqueCountIgnoreCase(List<String> words) {
-            // TODO
-            return 0;
+            Objects.requireNonNull(words, "words must not be null");
+            Set<String> data = new HashSet<>();
+            int counter = 0;
+            for (String el : words){
+                if ( el != null && data.add(el.toLowerCase())){
+                    counter++;
+                }
+            }
+            return counter;
         }
+
+
+    public static void main(String[] args) {
+        CollectionsEx ex = new CollectionsEx();
+     //   System.out.println(ex.uniqueCountIgnoreCase(null));
+
+        System.out.println(ex.uniqueCountIgnoreCase(new ArrayList<>(Arrays.asList("A","a","b","B","c"))));
+
+    }
+
+
 
         /**
          * Вернуть числа из [start..end], которых нет в nums.
