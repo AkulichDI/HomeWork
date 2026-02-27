@@ -302,7 +302,8 @@ public class CollectionsEx {
          * bump({}, "x") -> {x=1}
          */
         public Map<String, Integer> bump(Map<String, Integer> map, String key) {
-            // TODO
+            Objects.requireNonNull(map,"Map must not be null");
+            map.merge(key, 1, Integer::sum);
             return map;
         }
 
