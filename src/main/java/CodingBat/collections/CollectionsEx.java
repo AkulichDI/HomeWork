@@ -282,7 +282,17 @@ public class CollectionsEx {
          * swapKeys({a=1}, "a", "b") -> {a=1}
          */
         public Map<String, String> swapKeys(Map<String, String> map, String k1, String k2) {
-            // TODO
+            Objects.requireNonNull(map, "map must not be null");
+            if (k1 == null || k2 == null || Objects.equals(k1, k2)) return map;
+
+            if (!map.containsKey(k1) || !map.containsKey(k2)) return map;
+
+            String v1 = map.get(k1);
+            String v2 = map.get(k2);
+
+            map.put(k1, v2);
+            map.put(k2, v1);
+
             return map;
         }
 
