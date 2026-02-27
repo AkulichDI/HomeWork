@@ -271,7 +271,8 @@ public class CollectionsEx {
          * removeIfEquals({a=x}, "a", "z") -> {a=x}
          */
         public Map<String, String> removeIfEquals(Map<String, String> map, String key, String value) {
-            // TODO
+            Objects.requireNonNull(map, "Map must not be null");
+            map.remove(key,value);
             return map;
         }
 
