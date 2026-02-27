@@ -327,8 +327,14 @@ public class CollectionsEx {
          * groupByRemainder([], 3) -> {}
          */
         public Map<Integer, List<Integer>> groupByRemainder(List<Integer> nums, int mod) {
-            // TODO
-            return new HashMap<>();
+            Objects.requireNonNull(nums, "nums must not be null");
+            Map<Integer, List<Integer>> result = new HashMap<>();
+            for ( Integer el : nums){
+                if (el == null )continue;
+                Integer x =  el % mod;
+                result.computeIfAbsent(x, v -> new ArrayList<>()).add(el);
+            }
+            return result;
         }
 
         /**
