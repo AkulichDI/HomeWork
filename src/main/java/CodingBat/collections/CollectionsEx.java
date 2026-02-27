@@ -255,7 +255,13 @@ public class CollectionsEx {
          * (В стиле CodingBat Map-1: модифицировать и вернуть ту же map.)
          */
         public Map<String, String> copyIfPresent(Map<String, String> map, String from, String to) {
-            // TODO
+
+            Objects.requireNonNull(map, "map must not be null");
+            if (from == null || to == null) return map;
+
+            if (map.containsKey(from)) {
+                map.put(to, map.get(from));
+            }
             return map;
         }
 
