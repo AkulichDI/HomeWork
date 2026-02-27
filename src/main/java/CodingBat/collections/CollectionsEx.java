@@ -370,8 +370,29 @@ public class CollectionsEx {
          * top2ByFrequency([]) -> []
          */
         public List<String> top2ByFrequency(List<String> words) {
-            // TODO
-            return new ArrayList<>();
+            Objects.requireNonNull(words, "words must not be null");
+/*
+*
+* как надо было
+* */
+            Map<String, Integer> counts = new HashMap<>();
+            for (String w : words) {
+                if (w == null) continue;
+                counts.merge(w, 1, Integer::sum);
+            }
+
+            List<Map.Entry<String, Integer>> entries = new ArrayList<>(counts.entrySet());
+
+            entries.sort(
+                    Map.Entry.<String, Integer>comparingByValue(Comparator.reverseOrder())
+                            .thenComparing(Map.Entry.comparingByKey())
+            );
+
+            List<String> result = new ArrayList<>(2);
+            for (int i = 0; i < entries.size() && i < 2; i++) {
+                result.add(entries.get(i).getKey());
+            }
+            return result;
         }
     }
 
