@@ -218,24 +218,29 @@ public class CollectionsEx {
         }
 
 
-    public static void main(String[] args) {
-        CollectionsEx ex = new CollectionsEx();
-     //   System.out.println(ex.uniqueCountIgnoreCase(null));
-
-        System.out.println(ex.uniqueCountIgnoreCase(new ArrayList<>(Arrays.asList("A","a","b","B","c"))));
-
-    }
-
-
-
         /**
          * Вернуть числа из [start..end], которых нет в nums.
          * missingInRange({1,3,6}, 1, 6) -> {2,4,5}
          * missingInRange({}, 2, 4) -> {2,3,4}
          */
         public Set<Integer> missingInRange(Set<Integer> nums, int start, int end) {
-            // TODO
-            return new HashSet<>();
+
+            Objects.requireNonNull(nums, "nums must not be null");
+
+            int lo = Math.min(start, end);
+            int hi = Math.max(start, end);
+
+            Set<Integer> result = new HashSet<>();
+            for (int x = lo; x <= hi; x++) {
+                result.add(x);
+            }
+
+            for (Integer el : nums) {
+                if (el != null) {
+                    result.remove(el);
+                }
+            }
+            return result;
         }
 
         // -------------------------
