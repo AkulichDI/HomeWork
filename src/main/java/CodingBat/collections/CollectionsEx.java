@@ -313,8 +313,12 @@ public class CollectionsEx {
          * charCount("") -> {}
          */
         public Map<Character, Integer> charCount(String s) {
-            // TODO
-            return new HashMap<>();
+            Objects.requireNonNull(s,"s must not be null");
+            Map<Character,Integer> result = new HashMap<>();
+            for (Character el : s.toCharArray()){
+                result.merge(el,1, Integer::sum);
+            }
+            return result;
         }
 
         /**
