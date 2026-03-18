@@ -16,16 +16,20 @@ public class Server {
              var scanner = new Scanner(System.in)
         ){
             while (!socket.isClosed() ){
+                String msg = inputStream.readUTF();
 
-                System.out.print("You: ");
-                outputStream.writeUTF(  scanner.nextLine());
-                System.out.println("User message: " + inputStream.readUTF());
-                if ( inputStream.readUTF().equals("bye")){
-                    outputStream.writeUTF("bye bulka");
+                System.out.println("User message: " + msg);
+                if (msg.equals("bye")){
+                    outputStream.writeUTF("Ты пока");
                     socket.close();
-                    serverSocket.close();
                     break;
                 }
+                System.out.print("You: ");
+                outputStream.writeUTF(  scanner.nextLine());
+
+
+
+
             }
         }catch (IOException e) {
 
