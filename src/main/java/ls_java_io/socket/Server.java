@@ -1,32 +1,37 @@
 package ls_java_io.socket;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
 public class Server {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args)  {
 
-        StringBuilder sb = new StringBuilder();
+        try (ServerSocket serverSocket = new ServerSocket(8081);
+             Socket socket = serverSocket.accept();
+             var outputStream = new DataOutputStream(socket.getOutputStream());
+             var inputStream = new DataInputStream(socket.getInputStream());
+             var scanner = new Scanner(System.in)
+        ){
+            while (!socket.isClosed() ){
 
-        ServerSocket serverSocket = new ServerSocket(8081);
-        Socket input = serverSocket.accept();
-        Scanner in = new Scanner(input.getInputStream());
-        while (in.hasNext()){
+                System.out.print("You: ");
+                outputStream.writeUTF(  scanner.nextLine());
+                System.out.println("User message: " + inputStream.readUTF());
+                if ( inputStream.readUTF().equals("bye")){
+                    outputStream.writeUTF("bye bulka");
+                    socket.close();
+                    serverSocket.close();
+                    break;
+                }
+            }
+        }catch (IOException e) {
 
-            sb.append(in.nextLine());
-
-
+            e.printStackTrace();
         }
 
-        in.close();
-        input.close();
-        serverSocket.close();
-        System.out.println("Чтение зак");
-
-        System.out.println(sb.toString());
 
 
 
