@@ -47,5 +47,38 @@ class UserValidatorTest {
         );
     }
 
+    @Test
+    void whenUserIsValidThenDoesNotThrowException2 (){
+
+        UserValidator validator = new SimpleUserValidator();
+        User user = new  User("Oleg", "12345qwe6", "oleg@gmail.com");
+
+        assertDoesNotThrow( () -> validator.validate(user));
+
+    }
+
+
+    @Test
+    void whenUserIsNullThenThrowException() {
+        UserValidator validator = new SimpleUserValidator();
+        assertThrows( IllegalArgumentException.class,
+                () -> validator.validate(null));
+    }
+
+    @Test
+    void whenPasswordToShortThenThrowException (){
+
+        UserValidator validator = new SimpleUserValidator();
+        User user = new  User("petr", "16", "oleg@gmail.com");
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> validator.validate(user));
+    }
+
+
+
+
+
+
 
 }
